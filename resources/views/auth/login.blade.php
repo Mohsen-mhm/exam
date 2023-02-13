@@ -46,7 +46,7 @@
                 <div class="relative z-0 w-full mt-5 group">
                     <a href="{{ route('password.request') }}"
                        class="font-medium text-blue-600 hover:underline dark:text-blue-500">
-                        {{ __('Forgot Your Password?') }}
+                        Forgot Your Password?
                     </a>
                 </div>
             @endif
