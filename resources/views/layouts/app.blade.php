@@ -19,7 +19,7 @@
 <body class="dark">
 <div id="app">
     @include('layouts.navbar')
-    <main class="flex justify-center align-center dark:bg-gray-800 pt-10 pb-10 px-6 h-screen">
+    <main class="dark:bg-gray-800 pt-24 pb-10 px-6 min-h-screen">
         @yield('content')
     </main>
 </div>

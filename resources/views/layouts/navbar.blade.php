@@ -1,5 +1,5 @@
 <nav
-    class="z-50 bg-white px-2 sm:px-4 py-2.5 dark:bg-gray-900 w-full top-0 left-0 border-b border-gray-200 dark:border-gray-600">
+    class="z-50 bg-white px-2 sm:px-4 py-2.5 dark:bg-gray-900 w-full absolute top-0 left-0 border-b border-gray-200 dark:border-gray-600">
     <div class="container flex flex-wrap items-center justify-between mx-auto">
         <a href="{{ url('/') }}" class="flex items-center">
                 <span
@@ -7,25 +7,28 @@
         </a>
         <div class="flex md:order-2">
             @guest
-                @if(Route::has('login'))
-                    <a href="{{ route('login') }}"
-                       class="transition-all text-gray-700 hover:text-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-transparent dark:text-white dark:hover:text-gray-300 dark:focus:ring-blue-800">
-                        Login
-                    </a>
-                @endif
-                @if(Route::has('register'))
-                    <a href="{{ route('register') }}"
-                       class="transition-all text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Register
-                    </a>
-                @endif
+                <div class="flex space-x-3">
+                    @if(Route::has('login'))
+                        <a href="{{ route('login') }}"
+                           class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">
+                            Login
+                        </a>
+                    @endif
+                    @if(Route::has('register'))
+                        <a href="{{ route('register') }}"
+                           class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            Register
+                        </a>
+                    @endif
+                </div>
             @else
                 @if(auth()->user()->avatar)
                     <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown"
                          data-dropdown-placement="bottom-start" class="w-10 h-10 rounded-full cursor-pointer"
                          src="/storage/images/{{ auth()->user()->avatar }}" alt="User dropdown">
                 @else
-                    <svg class="w-10 h-10 text-gray-400 border border-gray-500 rounded-full cursor-pointer" fill="currentColor" id="avatarButton" type="button"
+                    <svg class="w-10 h-10 text-gray-400 border border-gray-500 rounded-full cursor-pointer"
+                         fill="currentColor" id="avatarButton" type="button"
                          data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start"
                          viewBox="0 0 20 20"
                          xmlns="http://www.w3.org/2000/svg">
