@@ -23,12 +23,13 @@ class CountVisitorMiddleware
         $userAgent = $request->userAgent();
 
         $visitor = DB::table('visitors')
-            ->where('ip_address', $ipAddress)
-            ->where('user_agent', $userAgent)
+            ->where('session_id', $sessionId)
+            ->orWhere('ip_address', $ipAddress)
             ->first();
 
         if (!$visitor) {
             DB::table('visitors')->insert([
+                'session_id' => $sessionId,
                 'ip_address' => $ipAddress,
                 'user_agent' => $userAgent,
                 'visited_at' => now(),

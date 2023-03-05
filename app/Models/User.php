@@ -48,4 +48,9 @@ class User extends Authenticatable
     {
         return $user->update($data);
     }
+
+    public function deleteUser($user)
+    {
+        return $user->delete();
+    }
 }

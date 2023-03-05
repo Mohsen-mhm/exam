@@ -27,11 +27,11 @@ class DashboardController extends Controller
             $validData['avatar'] = $avatarName;
         }
 
-        $data = $dashboardService->updateProfile($validData, Auth::user());
+        $status = $dashboardService->updateProfile($validData, Auth::user());
 
-        if ($data)
-            return redirect()->back()->with('success', 'updated successfully.');
+        if ($status)
+            return redirect()->back()->with('success', 'Updated successfully.');
         else
-            return redirect()->back()->withErrors('unable to update profile...!');
+            return redirect()->back()->withErrors('Unable to update profile...!');
     }
 }
