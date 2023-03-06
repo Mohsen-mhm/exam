@@ -53,4 +53,9 @@ class User extends Authenticatable
     {
         return $user->delete();
     }
+
+    public static function storeUser($data)
+    {
+        return self::create($data);
+    }
 }
