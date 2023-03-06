@@ -17,6 +17,11 @@ class UserService
         return User::storeUser($data);
     }
 
+    public function updateUser($data, $user)
+    {
+        return User::updateUser($data, $user);
+    }
+
     public function saveAvatar($image)
     {
         $avatarName = time() . '-' . mt_rand(11111, 99999) . '.' . $image->getClientOriginalExtension();

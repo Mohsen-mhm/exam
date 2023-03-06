@@ -58,4 +58,9 @@ class User extends Authenticatable
     {
         return self::create($data);
     }
+
+    public static function updateUser($data, $user)
+    {
+        return $user->update($data);
+    }
 }

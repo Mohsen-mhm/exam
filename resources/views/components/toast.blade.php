@@ -31,7 +31,7 @@
             </div>
             <div class="w-full absolute bottom-0 bg-gray-200 rounded-full h-1.5 dark:bg-gray-700">
                 <div class="bg-blue-600 h-1.5 rounded-full dark:bg-blue-500 progress"
-                     style="transition: width 3s; width: 0"></div>
+                     style="transition: width 4s; width: 0"></div>
             </div>
         </div>
     @elseif(session('success'))
@@ -64,7 +64,7 @@
             </div>
             <div class="w-full absolute bottom-0 bg-gray-200 rounded-full h-1.5 dark:bg-gray-700">
                 <div class="bg-blue-600 h-1.5 rounded-full dark:bg-blue-500 progress"
-                     style="transition: width 3s; width: 0"></div>
+                     style="transition: width 4s; width: 0"></div>
             </div>
         </div>
     @endif
@@ -77,6 +77,6 @@
         progressBar.style.width = '100%';
         setTimeout(() => {
             toastBtn.click();
-        }, 3000);
+        }, 4000);
     }
 </script>

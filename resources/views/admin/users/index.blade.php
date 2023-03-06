@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    {{--    TODO: Edit and Create user--}}
     <x-toast/>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div class="flex items-center justify-between p-4">

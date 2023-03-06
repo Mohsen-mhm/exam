@@ -55,7 +55,7 @@ class UserController extends Controller
         $status = $userService->storeUser($validData);
 
         if ($status)
-            return redirect()->route('admin.users.index')->with('success', 'Created successfully.');
+            return redirect(route('admin.users.index'))->with('success', 'Created successfully.');
         else
             return redirect()->back()->withErrors('Unable to create user...!');
     }
@@ -64,11 +64,12 @@ class UserController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
@@ -76,11 +77,31 @@ class UserController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, UserService $userService)
     {
-        //
+        $user = User::find($id);
+
+        $validData = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+            'superuser' => $request->superuser,
+        ];
+
+        if ($request->avatar) {
+            $image = $request->file('avatar');
+            $avatarName = $userService->saveAvatar($image);
+            $validData['avatar'] = $avatarName;
+        }
+
+        $status = $userService->updateUser($validData, $user);
+
+        if ($status)
+            return redirect(route('admin.users.index'))->with('success', 'Edited successfully.');
+        else
+            return redirect()->back()->withErrors('Unable to edit user...!');
     }
 
     /**
@@ -95,7 +116,7 @@ class UserController extends Controller
         $status = $userService->deleteUser($user);
 
         if ($status)
-            return redirect()->back()->with('success', 'Deleted successfully.');
+            return redirect(route('admin.users.index'))->with('success', 'Deleted successfully.');
         else
             return redirect()->back()->withErrors('Unable to delete user...!');
     }
