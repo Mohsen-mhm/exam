@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\StoreUserRequest;
 use App\Models\User;
 use App\Services\Admin\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -15,9 +16,16 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
+        $search = $request->input('search');
+
+        $users = User::when($search, function ($query, $search) {
+            return $query->where('name', 'LIKE', '%' . $search . '%')
+                ->orWhere('email', 'LIKE', '%' . $search . '%');
+        })
+            ->orderBy('name')
+            ->paginate(10);
         return view('admin.users.index', compact('users'));
     }
 
@@ -42,7 +50,7 @@ class UserController extends Controller
         $validData = [
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => Hash::make($request->password),
             'superuser' => $request->superuser,
         ];
 
@@ -86,7 +94,7 @@ class UserController extends Controller
         $validData = [
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => Hash::make($request->password),
             'superuser' => $request->superuser,
         ];
 

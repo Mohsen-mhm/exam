@@ -20,7 +20,7 @@
     <div class="flex justify-center">
         <div
             class="flex flex-col justify-center items-center w-4/5 p-4 min-h-96 bg-white border border-gray-200 rounded-lg shadow-2xl sm:p-6 md:p-8 dark:bg-gray-800/70 dark:border-gray-700">
-            <h5 class="text-xl mb-3 font-medium text-gray-900 dark:text-white">Create user</h5>
+            <h5 class="text-xl mb-3 font-medium text-gray-900 dark:text-white">Edit user</h5>
 
             <form method="POST" action="{{ route('admin.users.update', $user) }}" class="w-full" autocomplete="off"
                   enctype="multipart/form-data">
@@ -85,7 +85,7 @@
 
                 <button type="submit"
                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Create
+                    Edit
                 </button>
             </form>
         </div>
