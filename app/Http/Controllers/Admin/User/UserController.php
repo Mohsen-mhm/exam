@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Services\Admin\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Route;
 
 class UserController extends Controller
 {
@@ -26,7 +27,13 @@ class UserController extends Controller
         })
             ->orderBy('name')
             ->paginate(10);
-        return view('admin.users.index', compact('users'));
+
+        $breadcrumb = [
+            ['name' => 'Admin dashboard', 'route' => route('admin.home')],
+            ['name' => 'Users', 'route' => route('admin.users.index')],
+        ];
+
+        return view('admin.users.index', compact('users', 'breadcrumb'));
     }
 
     /**
@@ -36,7 +43,13 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        $breadcrumb = [
+            ['name' => 'Admin dashboard', 'route' => route('admin.home')],
+            ['name' => 'Users', 'route' => route('admin.users.index')],
+            ['name' => 'Create user', 'route' => route('admin.users.create')],
+        ];
+
+        return view('admin.users.create', compact('breadcrumb'));
     }
 
     /**
@@ -77,7 +90,14 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('admin.users.edit', compact('user'));
+
+        $breadcrumb = [
+            ['name' => 'Admin dashboard', 'route' => route('admin.home')],
+            ['name' => 'Users', 'route' => route('admin.users.index')],
+            ['name' => 'Edit user', 'route' => route('admin.users.edit', compact('user'))],
+        ];
+
+        return view('admin.users.edit', compact('user', 'breadcrumb'));
     }
 
     /**
@@ -94,7 +114,6 @@ class UserController extends Controller
         $validData = [
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
             'superuser' => $request->superuser,
         ];
 

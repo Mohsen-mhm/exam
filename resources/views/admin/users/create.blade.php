@@ -2,12 +2,14 @@
 
 @section('content')
     <x-toast/>
+    <x-breadcrumb :items="$breadcrumb"/>
     <div class="flex justify-center">
         <div
             class="flex flex-col justify-center items-center w-4/5 p-4 min-h-96 bg-white border border-gray-200 rounded-lg shadow-2xl sm:p-6 md:p-8 dark:bg-gray-800/70 dark:border-gray-700">
             <h5 class="text-xl mb-3 font-medium text-gray-900 dark:text-white">Create user</h5>
 
-            <form method="POST" action="{{ route('admin.users.store') }}" class="w-full" autocomplete="off" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('admin.users.store') }}" class="w-full" autocomplete="off"
+                  enctype="multipart/form-data">
                 @csrf
                 <div class="grid md:grid-cols-2 md:gap-6">
                     <div class="relative z-0 w-full mb-6 group">

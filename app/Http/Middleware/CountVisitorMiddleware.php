@@ -24,7 +24,6 @@ class CountVisitorMiddleware
 
         $visitor = DB::table('visitors')
             ->where('session_id', $sessionId)
-            ->orWhere('ip_address', $ipAddress)
             ->first();
 
         if (!$visitor) {
