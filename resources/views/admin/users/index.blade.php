@@ -2,9 +2,40 @@
 
 @section('content')
     <x-toast/>
-    <x-breadcrumb :items="$breadcrumb"/>
+    <div class="flex justify-between px-4 flex-col-sm border-b-2 pb-4">
+        <x-breadcrumb :items="$breadcrumb"/>
+        <ul class="max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400">
+            <li class="flex items-center font-normal">
+                <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor"
+                     viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clip-rule="evenodd"></path>
+                </svg>
+                &nbsp;Super users:&nbsp;&nbsp;<p
+                    class="text-blue-400 font-bold">{{ \App\Models\User::whereSuperuser(1)->count() }}</p>
+            </li>
+            <li class="flex items-center font-normal">
+                <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor"
+                     viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clip-rule="evenodd"></path>
+                </svg>
+                &nbsp;All users:&nbsp;&nbsp;<p
+                    class="text-blue-400 font-bold">{{ \App\Models\User::count() }}</p>
+            </li>
+        </ul>
+    </div>
+    <style>
+        @media (max-width: 768px) {
+            .flex-col-sm {
+                flex-direction: column;
+            }
+        }
+    </style>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <div class="flex items-center justify-between p-4">
+        <div class="flex items-center justify-between p-4 flex-col-sm">
             <label for="table-search" class="sr-only">Search</label>
             <form action="" method="GET">
                 <div class="flex">
@@ -19,12 +50,12 @@
                         </svg>
                     </button>
                     <input type="search" id="table-search-users" name="search"
-                           class="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg rounded-tl-none rounded-bl-none w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                           class="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg rounded-tl-none rounded-bl-none bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                            placeholder="Search for users">
                 </div>
             </form>
             <a href="{{ route('admin.users.create') }}" type="button"
-               class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+               class="my-2 text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                 Create user
             </a>
         </div>

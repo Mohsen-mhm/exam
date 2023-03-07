@@ -29,7 +29,7 @@ class UserController extends Controller
             ->paginate(10);
 
         $breadcrumb = [
-            ['name' => 'Admin dashboard', 'route' => route('admin.home')],
+            ['name' => 'Dashboard', 'route' => route('admin.home')],
             ['name' => 'Users', 'route' => route('admin.users.index')],
         ];
 
@@ -44,9 +44,9 @@ class UserController extends Controller
     public function create()
     {
         $breadcrumb = [
-            ['name' => 'Admin dashboard', 'route' => route('admin.home')],
+            ['name' => 'Dashboard', 'route' => route('admin.home')],
             ['name' => 'Users', 'route' => route('admin.users.index')],
-            ['name' => 'Create user', 'route' => route('admin.users.create')],
+            ['name' => 'Create', 'route' => route('admin.users.create')],
         ];
 
         return view('admin.users.create', compact('breadcrumb'));
@@ -92,9 +92,9 @@ class UserController extends Controller
         $user = User::find($id);
 
         $breadcrumb = [
-            ['name' => 'Admin dashboard', 'route' => route('admin.home')],
+            ['name' => 'Dashboard', 'route' => route('admin.home')],
             ['name' => 'Users', 'route' => route('admin.users.index')],
-            ['name' => 'Edit user', 'route' => route('admin.users.edit', compact('user'))],
+            ['name' => 'Edit', 'route' => route('admin.users.edit', compact('user'))],
         ];
 
         return view('admin.users.edit', compact('user', 'breadcrumb'));
