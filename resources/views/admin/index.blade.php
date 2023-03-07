@@ -17,7 +17,7 @@
                     class="text-blue-400">{{ \App\Models\User::count() }}</p></div>
         </a>
 
-        <div id="toast-simple" type="button"
+        <a href="{{ route('admin.exams.index') }}" id="toast-simple" type="button"
              class="cursor-pointer flex items-center w-full max-w-xs p-4 space-x-4 text-gray-500 bg-white divide-x divide-gray-200 rounded-lg shadow-lg border border-gray-700 dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800 m-2"
              role="alert">
             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
@@ -29,7 +29,7 @@
             </svg>
             <div class="pl-4 font-bold inline-flex">Exams:&nbsp;&nbsp;<p
                     class="text-green-400">{{ \App\Models\Exam::count() }}</p></div>
-        </div>
+        </a>
 
         <div id="toast-simple" data-popover-target="popover-visitors" data-popover-placement="bottom" type="button"
              class="cursor-pointer flex items-center w-full max-w-xs p-4 space-x-4 text-gray-500 bg-white divide-x divide-gray-200 rounded-lg shadow-lg border border-gray-700 dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800 m-2"

@@ -18,3 +18,5 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::resource('users', \App\Http\Controllers\Admin\User\UserController::class)->except(['show']);
 
+Route::resource('exams', \App\Http\Controllers\Admin\Exam\ExamController::class)->except(['show']);
+

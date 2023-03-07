@@ -9,9 +9,6 @@ module.exports = {
     ],
     theme: {
         extend: {},
-        screens:{
-
-        }
     },
     plugins: [
         require('flowbite/plugin')
