@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Admin\Exams;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateUserRequest extends FormRequest
+class StoreExamRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,11 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|min:3|max:255',
-            'email' => 'required|email|unique:users,email',
-            'avatar' => 'file|mimes:jpeg,png,jpg|max:512',
-            'superuser' => 'required|boolean'
+            'name' => ['required', 'string', 'min:3', 'max:255'],
+            'description' => ['required', 'string'],
+            'start_at' => ['required', 'date_format:Y-m-d H:i'],
+            'finish_at' => ['required', 'date_format:Y-m-d H:i'],
+            'time' => ['required', 'numeric'],
         ];
     }
 }

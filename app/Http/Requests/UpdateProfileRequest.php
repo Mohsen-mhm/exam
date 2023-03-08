@@ -24,8 +24,8 @@ class UpdateProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:3|max:255',
-            'avatar' => 'file|mimes:jpeg,png,jpg|max:512'
+            'name' => ['required', 'string', 'min:3', 'max:255'],
+            'avatar' => ['file', 'mimes:jpeg,png,jpg', 'max:512'],
         ];
     }
 }

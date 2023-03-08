@@ -12,9 +12,15 @@ class Exam extends Model
     protected $fillable = [
       'name',
       'description',
+      'link',
       'user_id',
       'start_at',
       'finish_at',
       'time',
     ];
+
+    public static function storeExam($data)
+    {
+        return self::create($data);
+    }
 }

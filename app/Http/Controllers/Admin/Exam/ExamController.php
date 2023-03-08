@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin\Exam;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Exams\StoreExamRequest;
 use App\Models\Exam;
+use App\Services\Admin\ExamService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ExamController extends Controller
 {
@@ -47,9 +50,22 @@ class ExamController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreExamRequest $request, ExamService $examService)
     {
-        //
+        foreach ($request->all() as $key => $value) {
+            if ($key !== '_token') {
+                $validData[$key] = $value;
+            }
+        }
+        $validData['user_id'] = auth()->user()->id;
+        $validData['link'] = strtolower(Str::random(10));
+
+        $status = $examService->storeExam($validData);
+
+        if ($status)
+            return redirect(route('admin.exams.index'))->with('success', 'Created successfully.');
+        else
+            return redirect()->back()->withErrors('Unable to create exam...!');
     }
 
     /**
