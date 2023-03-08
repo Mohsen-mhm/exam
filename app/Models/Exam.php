@@ -10,14 +10,24 @@ class Exam extends Model
     use HasFactory;
 
     protected $fillable = [
-      'name',
-      'description',
-      'link',
-      'user_id',
-      'start_at',
-      'finish_at',
-      'time',
+        'name',
+        'description',
+        'link',
+        'user_id',
+        'start_at',
+        'finish_at',
+        'time',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
 
     public static function storeExam($data)
     {

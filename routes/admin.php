@@ -20,3 +20,5 @@ Route::resource('users', \App\Http\Controllers\Admin\User\UserController::class)
 
 Route::resource('exams', \App\Http\Controllers\Admin\Exam\ExamController::class)->except(['show']);
 
+Route::resource('questions', \App\Http\Controllers\Admin\Question\QuestionController::class)->except(['show']);
+

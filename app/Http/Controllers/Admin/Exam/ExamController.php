@@ -74,13 +74,21 @@ class ExamController extends Controller
     public function edit(string $id)
     {
         $exam = Exam::find($id);
-        return view('admin.exams.edit', compact('exam'));
+
+        $breadcrumb = [
+            ['name' => 'Dashboard', 'route' => route('admin.home')],
+            ['name' => 'Exams', 'route' => route('admin.exams.index')],
+            ['name' => 'Edit', 'route' => route('admin.exams.edit', compact('exam'))],
+        ];
+
+        return view('admin.exams.edit', compact(['exam', 'breadcrumb']));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public
+    function update(Request $request, string $id)
     {
         //
     }
@@ -88,7 +96,8 @@ class ExamController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public
+    function destroy(string $id)
     {
         //
     }

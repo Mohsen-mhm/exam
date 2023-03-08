@@ -44,6 +44,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function exams()
+    {
+        return $this->hasMany(Exam::class);
+    }
+
     public function updateProfile($data, $user)
     {
         return $user->update($data);
