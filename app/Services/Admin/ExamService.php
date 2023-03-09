@@ -10,4 +10,9 @@ class ExamService
     {
         return Exam::storeExam($data);
     }
+
+    public function updateExam($data, $exam)
+    {
+        return Exam::updateExam($data, $exam);
+    }
 }

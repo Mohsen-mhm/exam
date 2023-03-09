@@ -33,4 +33,9 @@ class Exam extends Model
     {
         return self::create($data);
     }
+
+    public static function updateExam($data, $exam)
+    {
+        return $exam->update($data);
+    }
 }

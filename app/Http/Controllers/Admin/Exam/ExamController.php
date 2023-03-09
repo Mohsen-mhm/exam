@@ -88,9 +88,23 @@ class ExamController extends Controller
      * Update the specified resource in storage.
      */
     public
-    function update(Request $request, string $id)
+    function update(Request $request, string $id, ExamService $examService)
     {
-        //
+        $exam = Exam::findOrFail($id);
+
+        foreach ($request->all() as $key => $value) {
+            if ($key !== '_token' && $key !== '_method') {
+                $validData[$key] = $value;
+            }
+        }
+//        $validData['user_id'] = auth()->user()->id;
+
+        $status = $examService->updateExam($validData, $exam);
+
+        if ($status)
+            return redirect(route('admin.exams.edit', $exam))->with('success', 'Updated successfully.');
+        else
+            return redirect()->back()->withErrors('Unable to update exam...!');
     }
 
     /**
