@@ -23,4 +23,19 @@ class Question extends Model
     {
         return $this->belongsTo(Exam::class);
     }
+
+    public static function updateQuestion($data, $question)
+    {
+        return $question->update($data);
+    }
+
+    public static function storeQuestion($data)
+    {
+        return self::create($data);
+    }
+
+    public function deleteQuestion($question)
+    {
+        return $question->delete();
+    }
 }

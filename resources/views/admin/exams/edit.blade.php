@@ -5,11 +5,12 @@
     <x-breadcrumb :items="$breadcrumb"/>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div class="flex items-center justify-end p-4 flex-col-sm">
-            <a href="" type="button"
+            <a href="{{ route('admin.questions.create') }}" type="button"
                class="my-2 text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                 Create question
             </a>
         </div>
+        {{ session()->put('exam_id', $exam->id) }}
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -40,8 +41,16 @@
                                 class="w-96 font-normal text-gray-500 truncate overflow-ellipsis">{{ $question->question }}</div>
                         </td>
                         <td class="px-6 py-4">
-                            <a href=""
-                               class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-2">Edit exam</a>
+                            <a href="{{ route('admin.questions.edit', compact('question')) }}"
+                               class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-2">Edit
+                                question</a>
+                            <a class="font-medium text-red-600 dark:text-red-500 hover:underline ml-2 cursor-pointer"
+                               onclick="document.getElementById('delete-question-{{ $question->id }}').submit()">Delete question</a>
+                            <form action="{{ route('admin.questions.destroy', $question) }}" method="POST"
+                                  id="delete-question-{{ $question->id }}">
+                                @csrf
+                                @method('DELETE')
+                            </form>
                         </td>
                     </tr>
                 @endforeach

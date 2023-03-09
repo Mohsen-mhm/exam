@@ -79,7 +79,7 @@
                                   clip-rule="evenodd"></path>
                         </svg>
                         &nbsp;Last month:&nbsp;&nbsp;<p
-                            class="text-yellow-400 font-bold">{{ \Illuminate\Support\Facades\DB::table('visitors')->whereBetween('visited_at' ,[\Carbon\Carbon::now()->subMonth()->startOfMonth(), \Carbon\Carbon::now()->subMonth()->endOfMonth()])->count() }}</p>
+                            class="text-yellow-400 font-bold">{{ \Illuminate\Support\Facades\DB::table('visitors')->whereBetween('visited_at' ,[\Carbon\Carbon::now()->subMonth()->startOfMonth(), \Carbon\Carbon::now()])->count() }}</p>
                     </li>
                     <li class="flex items-center font-normal">
                         <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor"

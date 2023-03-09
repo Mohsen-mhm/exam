@@ -73,12 +73,12 @@ class ExamController extends Controller
      */
     public function edit(string $id)
     {
-        $exam = Exam::find($id);
+        $exam = Exam::findOrFail($id);
 
         $breadcrumb = [
             ['name' => 'Dashboard', 'route' => route('admin.home')],
             ['name' => 'Exams', 'route' => route('admin.exams.index')],
-            ['name' => 'Edit', 'route' => route('admin.exams.edit', compact('exam'))],
+            ['name' => 'Edit'],
         ];
 
         return view('admin.exams.edit', compact(['exam', 'breadcrumb']));
