@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\Exams\StoreExamRequest;
 use App\Models\Exam;
 use App\Services\Admin\ExamService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 class ExamController extends Controller
@@ -30,7 +31,31 @@ class ExamController extends Controller
             ['name' => 'Exams', 'route' => route('admin.exams.index')],
         ];
 
-        return view('admin.exams.index', compact('exams', 'breadcrumb'));
+        // Count not started exams
+        $notStarted = 0;
+        foreach (Exam::all() as $exam) {
+            if (!\Carbon\Carbon::now()->gte($exam->start_at)) {
+                $notStarted++;
+            }
+        }
+
+        // Count finished exams
+        $finished = 0;
+        foreach (Exam::all() as $exam) {
+            if (\Carbon\Carbon::now()->gte($exam->finish_at)) {
+                $finished++;
+            }
+        }
+
+        // Count on performing exams
+        $onPerforming = 0;
+        foreach (Exam::all() as $exam) {
+            if (\Carbon\Carbon::now()->between($exam->start_at, $exam->finish_at)) {
+                $onPerforming++;
+            }
+        }
+
+        return view('admin.exams.index', compact(['exams', 'breadcrumb', 'notStarted', 'finished', 'onPerforming']));
     }
 
     /**

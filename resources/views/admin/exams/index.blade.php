@@ -12,8 +12,8 @@
                           d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                           clip-rule="evenodd"></path>
                 </svg>
-                &nbsp;Super users:&nbsp;&nbsp;<p
-                    class="text-blue-400 font-bold">{{ \App\Models\User::whereSuperuser(1)->count() }}</p>
+                &nbsp;Not started:&nbsp;&nbsp;<p
+                    class="text-blue-400 font-bold">{{ $notStarted }}</p>
             </li>
             <li class="flex items-center font-normal">
                 <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor"
@@ -22,8 +22,28 @@
                           d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                           clip-rule="evenodd"></path>
                 </svg>
-                &nbsp;All users:&nbsp;&nbsp;<p
-                    class="text-blue-400 font-bold">{{ \App\Models\User::count() }}</p>
+                &nbsp;Finished:&nbsp;&nbsp;<p
+                    class="text-blue-400 font-bold">{{ $finished }}</p>
+            </li>
+            <li class="flex items-center font-normal">
+                <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor"
+                     viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clip-rule="evenodd"></path>
+                </svg>
+                &nbsp;On performing:&nbsp;&nbsp;<p
+                    class="text-blue-400 font-bold">{{ $onPerforming }}</p>
+            </li>
+            <li class="flex items-center font-normal">
+                <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor"
+                     viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clip-rule="evenodd"></path>
+                </svg>
+                &nbsp;All exams:&nbsp;&nbsp;<p
+                    class="text-blue-400 font-bold">{{ \App\Models\Exam::count() }}</p>
             </li>
         </ul>
     </div>
@@ -102,14 +122,14 @@
                     <td class="px-6 py-4">
                         <div class="flex flex-col">
                             <span style="width: 220px"
-                                class="text-center bg-green-100 text-green-800 text-xs font-medium py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400">{{ \Carbon\Carbon::parse($exam->start_at)->format('l, d F Y , H:i') }}</span>
+                                  class="text-center bg-green-100 text-green-800 text-xs font-medium py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400">{{ \Carbon\Carbon::parse($exam->start_at)->format('l, d F Y , H:i') }}</span>
                             <span style="width: 220px"
-                                class="mt-1 text-center bg-red-100 text-red-800 text-xs font-medium py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400">{{ \Carbon\Carbon::parse($exam->finish_at)->format('l, d F Y , H:i') }}</span>
+                                  class="mt-1 text-center bg-red-100 text-red-800 text-xs font-medium py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400">{{ \Carbon\Carbon::parse($exam->finish_at)->format('l, d F Y , H:i') }}</span>
                         </div>
                     </td>
                     <td class="px-6 py-4">
                         <p
-                           class="font-medium text-base dark:text-base mr-2">{{ $exam->time }} minutes</p>
+                            class="font-medium text-base dark:text-base mr-2">{{ $exam->time }} minutes</p>
                     </td>
                     <td class="px-6 py-4">
                         <a href="{{ route('admin.exams.edit', $exam) }}"
