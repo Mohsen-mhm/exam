@@ -61,10 +61,10 @@ class UserController extends Controller
     public function store(StoreUserRequest $request, UserService $userService)
     {
         $validData = [
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'superuser' => $request->superuser,
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('password')),
+            'superuser' => $request->input('superuser'),
         ];
 
         if ($request->avatar) {
@@ -112,9 +112,9 @@ class UserController extends Controller
         $user = User::find($id);
 
         $validData = [
-            'name' => $request->name,
-            'email' => $request->email,
-            'superuser' => $request->superuser,
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'superuser' => $request->input('superuser'),
         ];
 
         if ($request->avatar) {

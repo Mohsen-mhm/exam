@@ -23,4 +23,5 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::middleware('auth')->prefix('profile')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('profile');
     Route::post('/', [DashboardController::class, 'updateProfile'])->name('profile.update');
+    Route::post('/p', [DashboardController::class, 'updatePassword'])->name('profile.update.password');
 });

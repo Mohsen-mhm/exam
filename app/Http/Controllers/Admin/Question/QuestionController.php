@@ -30,7 +30,7 @@ class QuestionController extends Controller
      */
     public function store(StoreQuestionRequest $request, QuestionService $questionService)
     {
-        $examId = $request->exam_id;
+        $examId = $request->input('exam_id');
         foreach ($request->all() as $key => $value) {
             if ($key !== '_token') {
                 $validData[$key] = $value;
