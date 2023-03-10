@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Exam\ExamController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -22,9 +23,10 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::middleware('auth')->prefix('profile')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('profile');
+    Route::get('/setting', [DashboardController::class, 'setting'])->name('setting');
     Route::post('/', [DashboardController::class, 'updateProfile'])->name('profile.update');
     Route::post('/p', [DashboardController::class, 'updatePassword'])->name('profile.update.password');
 });
 
-Route::resource('exams', \App\Http\Controllers\Exam\ExamController::class)->except(['index', 'show', 'destroy']);
+Route::resource('exams', ExamController::class)->except(['index', 'show', 'destroy']);
 

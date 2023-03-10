@@ -25,7 +25,14 @@ class DashboardController extends Controller
             ->paginate(10);
 
 
-        return view('dashboard.index', compact(['user', 'userExams']));
+        return view('dashboard.index', compact(['userExams']));
+    }
+
+    public function setting()
+    {
+        $user = Auth::user();
+
+        return view('dashboard.setting', compact('user'));
     }
 
     public function updateProfile(UpdateProfileRequest $request, DashboardService $dashboardService)
