@@ -4,7 +4,7 @@
     <div class="w-full flex justify-center">
         <x-toast/>
         <div
-            class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+            class="w-3/4 p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
             <h5 class="mb-4 text-xl font-medium text-gray-500 dark:text-gray-400">{{ $exam->name }}</h5>
             <!-- List -->
             <ul role="list" class="space-y-5 my-7">
@@ -30,9 +30,9 @@
                               clip-rule="evenodd"></path>
                     </svg>
                     <span
-                        class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400 truncate">{{ url(route('exam', $exam->link)) }}</span>
+                        class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400 truncate">{{ url(route('participating', $exam->link)) }}</span>
                     <button id="copy-button" data-popover-target="popover-default"
-                            data-copy-text="{{ url(route('exam', $exam->link)) }}">
+                            data-copy-text="{{ url(route('participating', $exam->link)) }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                              class="bi bi-clipboard text-yellow-300" viewBox="0 0 16 16">
                             <path
@@ -110,7 +110,7 @@
             </ul>
             <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" type="button"
                     class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">
-                Choose plan
+                participation
             </button>
         </div>
     </div>
@@ -139,11 +139,11 @@
                               d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                     <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you
-                        sure you want to participate in this test?</h3>
-                    <button data-modal-hide="popup-modal" type="button"
-                            class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                        sure you want to participate in {{ $exam->name }}?</h3>
+                    <a href="{{ route('exam', $exam->link) }}" data-modal-hide="popup-modal" type="button"
+                       class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                         Yes, I'm sure
-                    </button>
+                    </a>
                     <button data-modal-hide="popup-modal" type="button"
                             class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
                         No, cancel
