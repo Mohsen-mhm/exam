@@ -38,4 +38,9 @@ class Exam extends Model
     {
         return $exam->update($data);
     }
+
+    public static function findByLink($link)
+    {
+        return self::whereLink($link)->first();
+    }
 }

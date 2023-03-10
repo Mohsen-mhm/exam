@@ -71,4 +71,11 @@ class ExamController extends Controller
         else
             return redirect()->back()->withErrors('Unable to update exam...!');
     }
+
+    public function participating($link)
+    {
+        $exam = Exam::findByLink($link);
+
+        return view('exams.participating', compact('exam'));
+    }
 }

@@ -32,3 +32,6 @@ Route::middleware('auth')->prefix('profile')->group(function () {
 Route::resource('exams', ExamController::class)->except(['index', 'show', 'destroy']);
 Route::resource('questions', QuestionController::class)->except(['index', 'show']);
 
+Route::get('participating/{link}',[ExamController::class, 'participating'])->name('participating');
+Route::get('exam/{link}',[ExamController::class, 'exam'])->name('exam');
+
