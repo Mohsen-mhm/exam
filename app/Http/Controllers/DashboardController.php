@@ -4,18 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UpdateProfileRequest;
+use App\Models\Exam;
 use App\Services\Dashboard\DashboardService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
-        return view('dashboard.index', compact('user'));
+        $search = $request->input('search');
+
+        $userExams = Exam::where('user_id', $user->id)->when($search, function ($query, $search) {
+            return $query->where('name', 'LIKE', '%' . $search . '%')
+                ->orWhere('description', 'LIKE', '%' . $search . '%');
+        })
+            ->orderBy('name')
+            ->paginate(10);
+
+
+        return view('dashboard.index', compact(['user', 'userExams']));
     }
 
     public function updateProfile(UpdateProfileRequest $request, DashboardService $dashboardService)
