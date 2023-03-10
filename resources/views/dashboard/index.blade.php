@@ -55,7 +55,7 @@
                                placeholder="Search for users" value="{{ $search }}">
                     </div>
                 </form>
-                <a href="{{ route('admin.exams.create') }}" type="button"
+                <a href="{{ route('exams.create') }}" type="button"
                    class="my-2 text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                     Create exam
                 </a>
@@ -101,7 +101,7 @@
                                 class="font-medium text-base dark:text-base mr-2">{{ $exam->time }} minutes</p>
                         </td>
                         <td class="px-6 py-4">
-                            <a href="{{ route('admin.exams.edit', $exam) }}"
+                            <a href="{{ route('exams.edit', $exam) }}"
                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-2">Edit
                                 exam</a>
                         </td>

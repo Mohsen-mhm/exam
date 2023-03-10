@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin\Question;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Questions\StoreQuestionRequest;
-use App\Http\Requests\Admin\Questions\UpdateQuestionRequest;
+use App\Http\Requests\Questions\StoreQuestionRequest;
+use App\Http\Requests\Questions\UpdateQuestionRequest;
 use App\Models\Question;
-use App\Services\Admin\QuestionService;
-use Illuminate\Http\Request;
+use App\Services\QuestionService;
 
 class QuestionController extends Controller
 {

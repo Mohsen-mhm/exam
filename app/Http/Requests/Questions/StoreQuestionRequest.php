@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Admin\Questions;
+namespace App\Http\Requests\Questions;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateQuestionRequest extends FormRequest
+class StoreQuestionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,6 +29,7 @@ class UpdateQuestionRequest extends FormRequest
             'o3' => ['required', 'string'],
             'o4' => ['required', 'string'],
             'answer' => ['required', 'numeric', Rule::in([1, 2, 3, 4])],
+            'exam_id' => ['required', 'numeric'],
         ];
     }
 }

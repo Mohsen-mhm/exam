@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin\Exam;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Exams\StoreExamRequest;
+use App\Http\Requests\Exams\StoreExamRequest;
 use App\Models\Exam;
-use App\Services\Admin\ExamService;
+use App\Services\ExamService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -121,7 +121,6 @@ class ExamController extends Controller
                 $validData[$key] = $value;
             }
         }
-//        $validData['user_id'] = auth()->user()->id;
 
         $status = $examService->updateExam($validData, $exam);
 
