@@ -22,16 +22,19 @@ Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::middleware('auth')->prefix('profile')->group(function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('profile');
-    Route::get('/setting', [DashboardController::class, 'setting'])->name('setting');
-    Route::post('/', [DashboardController::class, 'updateProfile'])->name('profile.update');
-    Route::post('/p', [DashboardController::class, 'updatePassword'])->name('profile.update.password');
+Route::middleware('auth')->prefix('profile')->controller(DashboardController::class)->group(function () {
+    Route::get('/', 'index')->name('profile');
+    Route::get('/setting', 'setting')->name('setting');
+    Route::post('/', 'updateProfile')->name('profile.update');
+    Route::post('/p', 'updatePassword')->name('profile.update.password');
 });
 
 Route::resource('exams', ExamController::class)->except(['index', 'show', 'destroy']);
 Route::resource('questions', QuestionController::class)->except(['index', 'show']);
 
-Route::get('participating/{link}',[ExamController::class, 'participating'])->name('participating');
-Route::get('exam/{link}',[ExamController::class, 'exam'])->name('exam');
+
+Route::controller(ExamController::class)->group(function () {
+    Route::get('exam/{link}', 'exam')->middleware(['auth', 'prevent.direct.access'])->name('exam');
+    Route::get('participating/{link}', 'participating')->middleware(['auth'])->name('participating');
+});
 

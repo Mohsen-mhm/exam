@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $exams = Exam::all();
+        $exams = Exam::orderBy('finish_at', 'desc')->get();
         return view('home', compact('exams'));
     }
 }

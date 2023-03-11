@@ -78,4 +78,10 @@ class ExamController extends Controller
 
         return view('exams.participating', compact('exam'));
     }
+
+    public function exam($link)
+    {
+        $exam = Exam::findByLink($link);
+
+    }
 }
