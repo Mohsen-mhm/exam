@@ -82,6 +82,6 @@ class ExamController extends Controller
     public function exam($link)
     {
         $exam = Exam::findByLink($link);
-
+        return view('exams.index', compact('exam'));
     }
 }
