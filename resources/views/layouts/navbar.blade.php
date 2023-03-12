@@ -39,7 +39,7 @@
 
                 <!-- Dropdown menu -->
                 <div id="userDropdown"
-                     class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                     class="z-50 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
                     <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
                         <div class="truncate">{{ auth()->user()->name }}</div>
                         <div class="font-medium truncate">{{ auth()->user()->email }}</div>

@@ -4,7 +4,7 @@
     <x-toast/>
     <div class="flex justify-center">
         <div id="marketing-banner" tabindex="-1"
-             class="w-3/4 fixed z-50 flex flex-col md:flex-row justify-between p-4 -translate-x-1/2 bg-white border border-gray-100 rounded-lg shadow-sm left-1/2 top-20 dark:bg-gray-700 dark:border-gray-600">
+             class="w-3/4 fixed z-40 flex flex-col md:flex-row justify-between p-4 -translate-x-1/2 bg-white border border-gray-100 rounded-lg shadow-sm left-1/2 top-20 dark:bg-gray-700 dark:border-gray-600">
             <div class="flex flex-col items-start mr-4 md:items-center md:flex-row md:mb-0">
                 <div>
                     <p class="flex items-center text-sm font-bold text-gray-500 dark:text-gray-300">Time left:</p>
@@ -17,48 +17,49 @@
     </div>
     <form action="" method="POST">
         @csrf
-        @foreach($exam->questions as $question)
-            <fieldset class="mt-20">
-                <legend class="sr-only">Countries</legend>
-                <p class="flex items-center text-sm font-bold text-gray-500 dark:text-gray-300 mb-2">{{ $question->question }}</p>
-                <div class="flex items-center mb-4">
-                    <input id="option-1" type="radio" name="o1" value="USA"
-                           class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
-                           checked>
-                    <label for="option-1"
-                           class="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                        {{ $question->o1 }}
-                    </label>
-                </div>
+        <fieldset class="mt-20">
+            <legend class="sr-only">Questions</legend>
+            @foreach($exam->questions as $question)
+                <div class="py-4 border-b border-dashed border-gray-500">
+                    <p class="flex items-center text-sm font-bold text-gray-500 dark:text-gray-300 mb-2">{{ $question->question }}</p>
+                    <div class="flex items-center mb-4">
+                        <input id="q-{{ $question->id }}" type="radio" name="q_{{ $question->id }}" value="1"
+                               class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="q-{{ $question->id }}"
+                               class="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            {{ $question->o1 }}
+                        </label>
+                    </div>
 
-                <div class="flex items-center mb-4">
-                    <input id="option-2" type="radio" name="o2" value="Germany"
-                           class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="option-2"
-                           class="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                        {{ $question->o2 }}
-                    </label>
-                </div>
+                    <div class="flex items-center mb-4">
+                        <input id="q-{{ $question->id }}" type="radio" name="q_{{ $question->id }}" value="2"
+                               class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="q-{{ $question->id }}"
+                               class="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            {{ $question->o2 }}
+                        </label>
+                    </div>
 
-                <div class="flex items-center mb-4">
-                    <input id="option-3" type="radio" name="o3" value="Spain"
-                           class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="option-3"
-                           class="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                        {{ $question->o3 }}
-                    </label>
-                </div>
+                    <div class="flex items-center mb-4">
+                        <input id="q-{{ $question->id }}" type="radio" name="q_{{ $question->id }}" value="3"
+                               class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="q-{{ $question->id }}"
+                               class="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            {{ $question->o3 }}
+                        </label>
+                    </div>
 
-                <div class="flex items-center mb-4">
-                    <input id="option-4" type="radio" name="o4" value="United Kingdom"
-                           class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring:blue-300 dark:focus-ring-blue-600 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="option-4"
-                           class="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                        {{ $question->o4 }}
-                    </label>
+                    <div class="flex items-center mb-4">
+                        <input id="q-{{ $question->id }}" type="radio" name="q_{{ $question->id }}" value="4"
+                               class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring:blue-300 dark:focus-ring-blue-600 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="q-{{ $question->id }}"
+                               class="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            {{ $question->o4 }}
+                        </label>
+                    </div>
                 </div>
-            </fieldset>
-        @endforeach
+            @endforeach
+        </fieldset>
     </form>
 
     @php
@@ -123,20 +124,9 @@
 
             startTimer();
         }
-
         window.onload = startTimer;
-
 
         // disable context menu (right click)
         document.addEventListener('contextmenu', event => event.preventDefault());
-
-        // function preventRefresh() {
-        //     return "Are you sure you want to refresh this page? Any unsaved data will be lost.";
-        // }
-        //
-        // window.addEventListener('beforeunload', function (event) {
-        //     event.preventDefault();
-        //     event.returnValue = preventRefresh();
-        // });
     </script>
 @endsection
