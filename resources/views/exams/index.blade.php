@@ -15,7 +15,7 @@
             </div>
         </div>
     </div>
-    <form action="">
+    <form action="" method="POST">
         @csrf
         @foreach($exam->questions as $question)
             <fieldset class="mt-20">
@@ -62,49 +62,81 @@
     </form>
 
     @php
-        $endExamTime = \Illuminate\Support\Carbon::now()->diffInMinutes($exam->finish_at);
-        $examDuration = $exam->time;
+        if (!\Illuminate\Support\Facades\Session::has('start_time')){
+            \Illuminate\Support\Facades\Session::put('start_time', now()->timestamp);
+        }
     @endphp
 
     <script>
         const examEndEl = document.getElementById('exam');
         const examEnd = new Date(examEndEl.dataset.date);
         const examEndTime = examEndEl.dataset.endTime;
-
-        const currentTime = new Date().getTime();
         const examTime = {{ $exam->time }};
+        let duration;
 
-        if (examEndTime < examTime) {
-            var duration = examEndTime * 60 * 1000; // Remaining time in milliseconds
-        } else {
-            var duration = examTime * 60 * 1000; // Full exam time in milliseconds
+        function startTimer() {
+            const timer = setInterval(() => {
+                const currentTime = new Date().getTime();
+                const sessionKey = "endTime_{{ $exam->id }}";
+                const endTimeStr = sessionStorage.getItem(sessionKey);
+                const endTime = new Date(endTimeStr).getTime();
+                const timeLeft = endTime - currentTime;
+                const minutesLeft = Math.floor((timeLeft % (1000 * 60 * examTime)) / (1000 * 60));
+                const secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                // Update the HTML with the remaining time
+                document.getElementById("timer").innerHTML = minutesLeft + "m " + secondsLeft + "s ";
+
+                // Update the stored endTime in session to reflect the new target time
+                const newEndTime = new Date(currentTime + timeLeft);
+                const newEndTimeStr = newEndTime.toISOString();
+                sessionStorage.setItem(sessionKey, newEndTimeStr);
+
+                // Check if the time has run out
+                if (timeLeft < 0 || examEnd < currentTime) {
+                    clearInterval(timer);
+                    document.getElementById("timer").innerHTML = "Time's up!";
+                    setTimeout(() => {
+                        window.location.href = "{{ route('home') }}";
+                    }, 1000);
+
+                    // Remove the endTime from session
+                    sessionStorage.removeItem(sessionKey);
+                }
+            }, 500);
         }
 
-        const endTime = currentTime + duration;
-        const endDate = new Date(endTime);
-        const endHour = endDate.getHours();
-        const endMinute = endDate.getMinutes();
-        const endSecond = endDate.getSeconds();
-
-        const timer = setInterval(() => {
-            const currentTime = new Date().getTime();
-            const timeLeft = endTime - currentTime;
-            const minutesLeft = Math.floor((timeLeft % (1000 * 60 * {!! $exam->time !!})) / (1000 * 60));
-            const secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-            // Update the HTML with the remaining time
-            document.getElementById("timer").innerHTML = minutesLeft + "m " + secondsLeft + "s ";
-
-            // Check if the time has run out
-            if (timeLeft < 0 || examEnd < currentTime) {
-                clearInterval(timer);
-                document.getElementById("timer").innerHTML = "Time's up!";
-                setTimeout(() => {
-                    window.location.href = "{{ route('home') }}";
-                }, 1000);
+        if (sessionStorage.getItem("endTime_{{ $exam->id }}")) {
+            startTimer();
+        } else {
+            if (examEndTime < examTime) {
+                duration = examEndTime * 60 * 1000; // Remaining time in milliseconds
+            } else {
+                duration = examTime * 60 * 1000; // Full exam time in milliseconds
             }
-        }, 500);
+
+            // Store the endTime in session
+            const endTime = new Date(new Date().getTime() + duration);
+            const endTimeStr = endTime.toISOString();
+            const sessionKey = "endTime_{{ $exam->id }}";
+            sessionStorage.setItem(sessionKey, endTimeStr);
+
+            startTimer();
+        }
+
+        window.onload = startTimer;
+
+
         // disable context menu (right click)
         document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // function preventRefresh() {
+        //     return "Are you sure you want to refresh this page? Any unsaved data will be lost.";
+        // }
+        //
+        // window.addEventListener('beforeunload', function (event) {
+        //     event.preventDefault();
+        //     event.returnValue = preventRefresh();
+        // });
     </script>
 @endsection
