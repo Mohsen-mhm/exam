@@ -17,7 +17,7 @@
                                   placeholder=" " style="padding-top: 2rem; margin-bottom: 3rem;"
                                   required>{{ old('question') }}</textarea>
                     <label for="question"
-                           class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-full scale-75 top-8 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-10">Description</label>
+                           class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-full scale-75 top-8 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-10">Question</label>
                     @error('question')
                     <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span
                             class="font-medium">Oops!&nbsp;</span>{{ $message }}</p>
