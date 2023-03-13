@@ -27,13 +27,7 @@
             </li>
         </ul>
     </div>
-    <style>
-        @media (max-width: 768px) {
-            .flex-col-sm {
-                flex-direction: column;
-            }
-        }
-    </style>
+
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div class="flex items-center justify-between p-4 flex-col-sm">
             <label for="table-search" class="sr-only">Search</label>
@@ -50,7 +44,7 @@
                         </svg>
                     </button>
                     @php
-                    $search = \Illuminate\Support\Facades\Request::input('search');
+                        $search = \Illuminate\Support\Facades\Request::input('search');
                     @endphp
                     <input type="search" id="table-search-users" name="search"
                            class="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg rounded-tl-none rounded-bl-none bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -128,5 +122,15 @@
     <div class="flex justify-center">
         {{ $users->links() }}
     </div>
+@endsection
+
+@section('style')
+    <style>
+        @media (max-width: 768px) {
+            .flex-col-sm {
+                flex-direction: column;
+            }
+        }
+    </style>
 @endsection
 

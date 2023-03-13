@@ -27,13 +27,7 @@
             </li>
         </ul>
     </div>
-    <style>
-        @media (max-width: 768px) {
-            .flex-col-sm {
-                flex-direction: column;
-            }
-        }
-    </style>
+
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div class="flex items-center justify-between p-4 flex-col-sm">
             <label for="table-search" class="sr-only">Search</label>
@@ -123,5 +117,15 @@
     <div class="flex justify-center">
         {{ $exams->links() }}
     </div>
+@endsection
+
+@section('style')
+    <style>
+        @media (max-width: 768px) {
+            .flex-col-sm {
+                flex-direction: column;
+            }
+        }
+    </style>
 @endsection
 

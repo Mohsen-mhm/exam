@@ -97,8 +97,6 @@
         </div>
     </div>
     <div class="flex flex-wrap justify-center">
-
         {!! \App\Http\Controllers\Admin\HomeController::calendar() !!}
-
     </div>
 @endsection

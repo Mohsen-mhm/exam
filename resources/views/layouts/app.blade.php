@@ -13,8 +13,9 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
-    <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- Links -->
+    @vite(['resources/css/app.css'])
+    @yield('style')
 </head>
 <body class="dark">
 <div id="app">
@@ -23,6 +24,8 @@
         @yield('content')
     </main>
 </div>
+<!-- Scripts -->
+@vite(['resources/js/app.js'])
 @yield('script')
 </body>
 </html>

@@ -73,25 +73,6 @@
                             class="font-medium">Oops!&nbsp;</span>{{ $message }}</p>
                     @enderror
                 </div>
-                <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
-                <script>
-                    flatpickr("#start_at", {
-                        theme: "dark",
-                        enableTime: true,
-                        dateFormat: "Y-m-d H:i",
-                        time_24hr: true,
-                        timezone: "Asia/Tehran",
-                    });
-                    flatpickr("#finish_at", {
-                        theme: "dark",
-                        enableTime: true,
-                        dateFormat: "Y-m-d H:i",
-                        time_24hr: true,
-                        timezone: "Asia/Tehran",
-                    });
-                </script>
 
                 <button type="submit"
                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -175,4 +156,29 @@
             </tbody>
         </table>
     </div>
+@endsection
+
+@section('style')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
+@endsection
+
+@section('script')
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr("#start_at", {
+            theme: "dark",
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            time_24hr: true,
+            timezone: "Asia/Tehran",
+        });
+        flatpickr("#finish_at", {
+            theme: "dark",
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            time_24hr: true,
+            timezone: "Asia/Tehran",
+        });
+    </script>
 @endsection

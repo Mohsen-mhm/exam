@@ -60,14 +60,14 @@
                 </div>
             @endforeach
         </fieldset>
+        <button type="submit"
+                class="mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            Send answers
+        </button>
     </form>
+@endsection
 
-    @php
-        if (!\Illuminate\Support\Facades\Session::has('start_time')){
-            \Illuminate\Support\Facades\Session::put('start_time', now()->timestamp);
-        }
-    @endphp
-
+@section('script')
     <script>
         const examEndEl = document.getElementById('exam');
         const examEnd = new Date(examEndEl.dataset.date);

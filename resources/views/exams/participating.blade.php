@@ -172,6 +172,9 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
     <script>
         var copyButton = document.getElementById('copy-button');
         var popoverText = document.getElementById('popover-text');
