@@ -48,7 +48,7 @@
                     @endphp
                     <input type="search" id="table-search-users" name="search"
                            class="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg rounded-tl-none rounded-bl-none bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                           placeholder="Search for users" value="{{ isset($search) }}">
+                           placeholder="Search for users" value="{{ $search }}">
                 </div>
             </form>
             <a href="{{ route('admin.users.create') }}" type="button"

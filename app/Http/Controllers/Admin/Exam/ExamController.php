@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Exam;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Exams\StoreExamRequest;
 use App\Models\Exam;
+use App\Models\Question;
 use App\Services\ExamService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -20,7 +21,8 @@ class ExamController extends Controller
 
         $exams = Exam::when($search, function ($query, $search) {
             return $query->where('name', 'LIKE', '%' . $search . '%')
-                ->orWhere('description', 'LIKE', '%' . $search . '%');
+                ->orWhere('description', 'LIKE', '%' . $search . '%')
+                ->orWhere('id', 'LIKE', '%' . $search . '%');
         })
             ->orderBy('name')
             ->paginate(10);
@@ -95,9 +97,15 @@ class ExamController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id, Request $request)
     {
         $exam = Exam::findOrFail($id);
+        $search = $request->input('search');
+
+        $questions = Question::when($search, function ($query, $search) {
+            return $query->where('id', 'LIKE', '%' . $search . '%')
+                ->orWhere('question', 'LIKE', '%' . $search . '%');
+        })->where('exam_id', $exam->id)->paginate(10);
 
         $breadcrumb = [
             ['name' => 'Dashboard', 'route' => route('admin.home')],
@@ -105,7 +113,7 @@ class ExamController extends Controller
             ['name' => 'Edit'],
         ];
 
-        return view('admin.exams.edit', compact(['exam', 'breadcrumb']));
+        return view('admin.exams.edit', compact(['exam', 'breadcrumb', 'questions']));
     }
 
     /**

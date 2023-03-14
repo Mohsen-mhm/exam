@@ -25,6 +25,11 @@ class Result extends Model
         return $this->belongsTo(Exam::class);
     }
 
+    public function responses()
+    {
+        return $this->hasMany(Response::class);
+    }
+
     public static function storeResult($data)
     {
         return self::create($data);

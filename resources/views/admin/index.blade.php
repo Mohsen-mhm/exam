@@ -3,8 +3,8 @@
 @section('content')
     <div class="flex flex-wrap justify-center -mx-4">
         <a href="{{ route('admin.users.index') }}" id="toast-simple" type="button"
-             class="cursor-pointer flex items-center w-full max-w-xs p-4 space-x-4 text-gray-500 bg-white divide-x divide-gray-200 rounded-lg shadow-lg border border-gray-700 dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800 m-2"
-             role="alert">
+           class="cursor-pointer flex items-center w-full max-w-xs p-4 space-x-4 text-gray-500 bg-white divide-x divide-gray-200 rounded-lg shadow-lg border border-gray-700 dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800 m-2"
+           role="alert">
             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none"
                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                  class="text-blue-400">
@@ -18,8 +18,8 @@
         </a>
 
         <a href="{{ route('admin.exams.index') }}" id="toast-simple" type="button"
-             class="cursor-pointer flex items-center w-full max-w-xs p-4 space-x-4 text-gray-500 bg-white divide-x divide-gray-200 rounded-lg shadow-lg border border-gray-700 dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800 m-2"
-             role="alert">
+           class="cursor-pointer flex items-center w-full max-w-xs p-4 space-x-4 text-gray-500 bg-white divide-x divide-gray-200 rounded-lg shadow-lg border border-gray-700 dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800 m-2"
+           role="alert">
             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
                  class="text-green-400"
                  viewBox="0 0 16 16" id="IconChangeColor">
@@ -29,6 +29,18 @@
             </svg>
             <div class="pl-4 font-bold inline-flex">Exams:&nbsp;&nbsp;<p
                     class="text-green-400">{{ \App\Models\Exam::count() }}</p></div>
+        </a>
+
+        <a href="{{ route('admin.results.index') }}" id="toast-simple" type="button"
+           class="cursor-pointer flex items-center w-full max-w-xs p-4 space-x-4 text-gray-500 bg-white divide-x divide-gray-200 rounded-lg shadow-lg border border-gray-700 dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800 m-2"
+           role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-activity text-red-400"
+                 viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                      d="M6 2a.5.5 0 0 1 .47.33L10 12.036l1.53-4.208A.5.5 0 0 1 12 7.5h3.5a.5.5 0 0 1 0 1h-3.15l-1.88 5.17a.5.5 0 0 1-.94 0L6 3.964 4.47 8.171A.5.5 0 0 1 4 8.5H.5a.5.5 0 0 1 0-1h3.15l1.88-5.17A.5.5 0 0 1 6 2Z"/>
+            </svg>
+            <div class="pl-4 font-bold inline-flex">Results:&nbsp;&nbsp;<p
+                    class="text-red-400">{{ \App\Models\Result::count() }}</p></div>
         </a>
 
         <div id="toast-simple" data-popover-target="popover-visitors" data-popover-placement="bottom" type="button"

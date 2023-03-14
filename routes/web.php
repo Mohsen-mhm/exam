@@ -5,6 +5,7 @@ use App\Http\Controllers\Exam\ExamController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Question\QuestionController;
 use App\Http\Controllers\Response\ResponsesController;
+use App\Http\Controllers\Result\ResultController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 

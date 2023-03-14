@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Result;
 
 use App\Http\Controllers\Controller;
-use App\Services\Result\ResultService;
+use Illuminate\Http\Request;
 
 class ResultController extends Controller
 {

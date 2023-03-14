@@ -26,7 +26,6 @@ class UpdateExamRequest extends FormRequest
             'description' => ['required', 'string'],
             'start_at' => ['required', 'date_format:Y-m-d H:i'],
             'finish_at' => ['required', 'date_format:Y-m-d H:i'],
-            'time' => ['required', 'numeric'],
         ];
     }
 }

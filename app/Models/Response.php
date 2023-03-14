@@ -31,8 +31,21 @@ class Response extends Model
         return $this->belongsTo(Question::class);
     }
 
+    public function result()
+    {
+        return $this->belongsTo(Result::class);
+    }
+
     public static function storeResponse($data)
     {
         return self::create($data);
+    }
+
+    public static function getResponses($userId, $examId)
+    {
+        return self::where([
+            'user_id' => $userId,
+            'exam_id' => $examId
+        ])->get();
     }
 }
