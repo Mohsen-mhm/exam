@@ -137,13 +137,4 @@ class ExamController extends Controller
         else
             return redirect()->back()->withErrors('Unable to update exam...!');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public
-    function destroy(string $id)
-    {
-        //
-    }
 }

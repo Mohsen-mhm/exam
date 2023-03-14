@@ -22,7 +22,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::resource('users', UserController::class)->except(['show']);
 
-Route::resource('exams', ExamController::class)->except(['show']);
+Route::resource('exams', ExamController::class)->except(['show','destroy']);
 
 Route::resource('questions', QuestionController::class)->except(['index', 'show']);
 

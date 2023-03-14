@@ -6,7 +6,7 @@
     <div class="flex justify-center mb-5">
         <div
             class="flex flex-col justify-center items-center w-4/5 p-4 min-h-96 bg-white border border-gray-200 rounded-lg shadow-2xl sm:p-6 md:p-8 dark:bg-gray-800/70 dark:border-gray-700">
-            <h5 class="text-xl mb-3 font-medium text-gray-900 dark:text-white">Create exam</h5>
+            <h5 class="text-xl mb-3 font-medium text-gray-900 dark:text-white">Edit exam</h5>
 
             <form method="POST" action="{{ route('admin.exams.update', $exam) }}" class="w-full" autocomplete="off">
                 @csrf
@@ -121,6 +121,9 @@
                     Question
                 </th>
                 <th scope="col" class="px-6 py-3">
+                    answer
+                </th>
+                <th scope="col" class="px-6 py-3">
                     Action
                 </th>
             </tr>
@@ -139,6 +142,10 @@
                         <td class="px-6 py-4">
                             <div
                                 class="w-96 font-normal text-gray-500 truncate overflow-ellipsis">{{ $question->question }}</div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div
+                                class="w-96 font-normal text-gray-500 truncate overflow-ellipsis">{{ $question->answer }}</div>
                         </td>
                         <td class="px-6 py-4">
                             <a href="{{ route('admin.questions.edit', compact('question')) }}"

@@ -5,7 +5,7 @@
     <div class="flex justify-center mb-5">
         <div
             class="flex flex-col justify-center items-center w-4/5 p-4 min-h-96 bg-white border border-gray-200 rounded-lg shadow-2xl sm:p-6 md:p-8 dark:bg-gray-800/70 dark:border-gray-700">
-            <h5 class="text-xl mb-3 font-medium text-gray-900 dark:text-white">Create exam</h5>
+            <h5 class="text-xl mb-3 font-medium text-gray-900 dark:text-white">Edit exam</h5>
 
             <form method="POST" action="{{ route('exams.update', $exam) }}" class="w-full" autocomplete="off">
                 @csrf
