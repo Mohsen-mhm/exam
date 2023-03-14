@@ -29,6 +29,16 @@ class Exam extends Model
         return $this->hasMany(Question::class);
     }
 
+    public function responses()
+    {
+        return $this->hasMany(Response::class);
+    }
+
+    public function results()
+    {
+        return $this->hasMany(Result::class);
+    }
+
     public static function storeExam($data)
     {
         return self::create($data);

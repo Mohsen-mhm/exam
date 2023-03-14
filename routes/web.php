@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Exam\ExamController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Question\QuestionController;
+use App\Http\Controllers\Response\ResponsesController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -37,4 +38,5 @@ Route::controller(ExamController::class)->group(function () {
     Route::get('exam/{link}', 'exam')->middleware(['auth', 'prevent.direct.access'])->name('exam');
     Route::get('participating/{link}', 'participating')->middleware(['auth'])->name('participating');
 });
+Route::post('exam/{link}', [ResponsesController::class, 'examCheck'])->middleware(['auth'])->name('exam.check');
 

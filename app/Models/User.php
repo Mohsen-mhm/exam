@@ -49,6 +49,16 @@ class User extends Authenticatable
         return $this->hasMany(Exam::class);
     }
 
+    public function responses()
+    {
+        return $this->hasMany(Response::class);
+    }
+
+    public function results()
+    {
+        return $this->hasMany(Result::class);
+    }
+
     public function updateProfile($data, $user)
     {
         return $user->update($data);

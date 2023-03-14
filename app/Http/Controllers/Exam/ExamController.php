@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Exam;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Exams\StoreExamRequest;
 use App\Http\Requests\Exams\UpdateExamRequest;
+use App\Http\Requests\Response\ResponseRequest;
 use App\Models\Exam;
 use App\Services\ExamService;
 use Illuminate\Http\Request;

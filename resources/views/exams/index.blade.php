@@ -15,7 +15,7 @@
             </div>
         </div>
     </div>
-    <form action="" method="POST">
+    <form action="{{ route('exam.check', $exam->link) }}" method="POST">
         @csrf
         <fieldset class="mt-20">
             <legend class="sr-only">Questions</legend>

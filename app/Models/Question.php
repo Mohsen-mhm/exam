@@ -24,6 +24,11 @@ class Question extends Model
         return $this->belongsTo(Exam::class);
     }
 
+    public function responses()
+    {
+        return $this->hasMany(Response::class);
+    }
+
     public static function updateQuestion($data, $question)
     {
         return $question->update($data);
@@ -37,5 +42,15 @@ class Question extends Model
     public function deleteQuestion($question)
     {
         return $question->delete();
+    }
+
+    public static function findQuestion($id)
+    {
+        return self::findOrFail($id);
+    }
+
+    public function isCorrect($userAnswer)
+    {
+        return $this->answer == $userAnswer;
     }
 }
