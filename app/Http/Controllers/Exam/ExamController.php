@@ -10,6 +10,7 @@ use App\Models\Exam;
 use App\Models\Question;
 use App\Services\ExamService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class ExamController extends Controller
@@ -49,6 +50,12 @@ class ExamController extends Controller
     public function edit(string $id, Request $request)
     {
         $exam = Exam::findOrFail($id);
+
+        // Check ownership
+        if ($exam->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized access');
+        }
+
         $search = $request->input('search');
 
         $questions = Question::when($search, function ($query, $search) {
@@ -65,6 +72,11 @@ class ExamController extends Controller
     public function update(UpdateExamRequest $request, string $id, ExamService $examService)
     {
         $exam = Exam::findOrFail($id);
+
+        // Check ownership
+        if ($exam->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized access');
+        }
 
         foreach ($request->all() as $key => $value) {
             if ($key !== '_token' && $key !== '_method') {

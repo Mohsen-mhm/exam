@@ -7,6 +7,7 @@ use App\Models\Exam;
 use App\Models\Response;
 use App\Models\Result;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ResultController extends Controller
 {
@@ -15,7 +16,15 @@ class ResultController extends Controller
      */
     public function index()
     {
-        $results = Result::where('exam_id', \Illuminate\Support\Facades\Request::input('exam'))
+        $examID = \Illuminate\Support\Facades\Request::input('exam');
+        $exam = Exam::find($examID);
+
+        // Check ownership
+        if ($exam->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized access');
+        }
+
+        $results = Result::where('exam_id', $examID)
             ->paginate(10);
 
         return view('dashboard.results.index', compact('results'));
@@ -27,6 +36,12 @@ class ResultController extends Controller
     public function show(string $id)
     {
         $result = Result::find($id);
+
+        // Check ownership
+        if ($result->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized access');
+        }
+
         $responses = Response::getResponses($result->user_id, $result->exam_id);
 
         return view('dashboard.results.show', compact(['responses']));

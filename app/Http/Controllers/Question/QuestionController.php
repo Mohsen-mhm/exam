@@ -7,6 +7,7 @@ use App\Http\Requests\Questions\StoreQuestionRequest;
 use App\Http\Requests\Questions\UpdateQuestionRequest;
 use App\Models\Question;
 use App\Services\QuestionService;
+use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {
@@ -44,6 +45,11 @@ class QuestionController extends Controller
     {
         $question = Question::findOrFail($id);
 
+        // Check ownership
+        if ($question->exam->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized access');
+        }
+
         return view('dashboard.questions.edit', compact(['question']));
     }
 
@@ -53,6 +59,11 @@ class QuestionController extends Controller
     public function update(UpdateQuestionRequest $request, string $id, QuestionService $questionService)
     {
         $question = Question::findOrFail($id);
+
+        // Check ownership
+        if ($question->exam->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized access');
+        }
 
         foreach ($request->all() as $key => $value) {
             if ($key !== '_token' && $key !== '_method') {
@@ -73,6 +84,12 @@ class QuestionController extends Controller
     public function destroy(string $id, QuestionService $questionService)
     {
         $question = Question::findOrFail($id);
+
+        // Check ownership
+        if ($question->exam->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized access');
+        }
+
         $status = $questionService->deleteQuestion($question);
 
         if ($status)

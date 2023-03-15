@@ -31,11 +31,11 @@ Route::middleware('auth')->prefix('profile')->controller(DashboardController::cl
     Route::post('/p', 'updatePassword')->name('profile.update.password');
 });
 
-Route::resource('exams', ExamController::class)->except(['index', 'show', 'destroy']);
+Route::resource('exams', ExamController::class)->middleware(['auth'])->except(['index', 'show', 'destroy']);
 
-Route::resource('questions', QuestionController::class)->except(['index', 'show']);
+Route::resource('questions', QuestionController::class)->middleware(['auth'])->except(['index', 'show']);
 
-Route::resource('results', ResultController::class)->only(['index','show']);
+Route::resource('results', ResultController::class)->middleware(['auth'])->only(['index','show']);
 
 
 Route::controller(ExamController::class)->group(function () {
