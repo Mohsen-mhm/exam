@@ -5,6 +5,7 @@ use App\Http\Controllers\Exam\ExamController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Question\QuestionController;
 use App\Http\Controllers\Response\ResponsesController;
+use App\Http\Controllers\Result\ResultController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -31,7 +32,10 @@ Route::middleware('auth')->prefix('profile')->controller(DashboardController::cl
 });
 
 Route::resource('exams', ExamController::class)->except(['index', 'show', 'destroy']);
+
 Route::resource('questions', QuestionController::class)->except(['index', 'show']);
+
+Route::resource('results', ResultController::class)->only(['index','show']);
 
 
 Route::controller(ExamController::class)->group(function () {

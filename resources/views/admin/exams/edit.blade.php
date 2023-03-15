@@ -165,7 +165,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td colspan="3" class="text-center">
+                    <td colspan="4" class="text-center">
                         <div
                             class="flex justify-center m-7 p-4 text-sm text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300 dark:border-yellow-800"
                             role="alert">
@@ -186,7 +186,7 @@
             </tbody>
         </table>
     </div>
-    
+
     <div class="flex justify-center">
         {{ $questions->links() }}
     </div>

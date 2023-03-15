@@ -19,7 +19,8 @@ class DashboardController extends Controller
 
         $userExams = Exam::where('user_id', $user->id)->when($search, function ($query, $search) {
             return $query->where('name', 'LIKE', '%' . $search . '%')
-                ->orWhere('description', 'LIKE', '%' . $search . '%');
+                ->orWhere('description', 'LIKE', '%' . $search . '%')
+                ->orWhere('id', 'LIKE', '%' . $search . '%');
         })
             ->orderBy('name')
             ->paginate(10);
