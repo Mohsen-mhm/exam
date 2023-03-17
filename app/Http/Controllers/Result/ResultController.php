@@ -44,6 +44,6 @@ class ResultController extends Controller
 
         $responses = Response::getResponses($result->user_id, $result->exam_id);
 
-        return view('dashboard.results.show', compact(['responses']));
+        return view('dashboard.results.show', compact(['result','responses']));
     }
 }

@@ -42,6 +42,7 @@ Route::resource('profile/questions', QuestionController::class)->middleware(['au
 Route::resource('profile/results', ResultController::class)->middleware(['auth'])->only(['index', 'show']);
 
 Route::get('profile/export/results', [ExportController::class, 'exportPdfExamResults'])->name('results.export.pdf');
+Route::get('profile/export/responses', [ExportController::class, 'exportPdfExamResponses'])->name('responses.export.pdf');
 
 
 Route::controller(ExamController::class)->group(function () {
