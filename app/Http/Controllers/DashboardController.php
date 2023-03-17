@@ -12,7 +12,19 @@ use Illuminate\Support\Facades\Hash;
 
 class DashboardController extends Controller
 {
-    public function index(Request $request)
+    public function index()
+    {
+        return view('dashboard.index');
+    }
+
+    public function setting()
+    {
+        $user = Auth::user();
+
+        return view('dashboard.setting', compact('user'));
+    }
+
+    public function exams(Request $request)
     {
         $user = Auth::user();
         $search = $request->input('search');
@@ -25,15 +37,7 @@ class DashboardController extends Controller
             ->orderBy('name')
             ->paginate(10);
 
-
-        return view('dashboard.index', compact(['userExams']));
-    }
-
-    public function setting()
-    {
-        $user = Auth::user();
-
-        return view('dashboard.setting', compact('user'));
+        return view('dashboard.exams', compact('userExams'));
     }
 
     public function updateProfile(UpdateProfileRequest $request, DashboardService $dashboardService)

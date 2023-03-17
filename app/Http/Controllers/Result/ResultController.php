@@ -38,7 +38,7 @@ class ResultController extends Controller
         $result = Result::find($id);
 
         // Check ownership
-        if ($result->user_id !== Auth::id()) {
+        if ($result->exam->user_id !== Auth::id()) {
             abort(403, 'Unauthorized access');
         }
 

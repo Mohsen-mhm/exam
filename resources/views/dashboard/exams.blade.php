@@ -3,7 +3,6 @@
 @section('content')
     <div class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <x-toast/>
-
         <div class="border-b border-gray-200 dark:border-gray-700">
             <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                 <li class="mr-2">
@@ -44,34 +43,46 @@
                 </li>
             </ul>
         </div>
-        <div class="flex justify-start items-center px-4 flex-col-sm p-4">
-            <p class="font-medium text-base dark:text-white mr-5">Export results:</p>
-            <a href="{{ route('results.export.pdf', ['exam_id' => \Illuminate\Support\Facades\Request::input('exam')]) }}"
-               class="flex flex-col justify-center items-center text-red-400">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                     class="bi bi-file-earmark-pdf text-red-400" viewBox="0 0 16 16">
-                    <path
-                        d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
-                    <path
-                        d="M4.603 14.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.697 19.697 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.712 5.712 0 0 1-.911-.95 11.651 11.651 0 0 0-1.997.406 11.307 11.307 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.266.266 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.71 12.71 0 0 1 1.01-.193 11.744 11.744 0 0 1-.51-.858 20.801 20.801 0 0 1-.5 1.05zm2.446.45c.15.163.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.876 3.876 0 0 0-.612-.053zM8.078 7.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z"/>
-                </svg>PDF
-            </a>
-        </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <div class="flex items-center justify-between p-4 flex-col-sm">
+                <label for="table-search" class="sr-only">Search</label>
+                <form action="" method="GET">
+                    <div class="flex">
+                        <button type="submit"
+                                class="inset-y-0 left-0 flex items-center dark:bg-gray-800 border dark:border-gray-600 border-r-0 rounded-lg rounded-br-none rounded-tr-none px-2 cursor-pointer z-50">
+                            <svg class="w-5 h-5 text-gray-500 dark:text-gray-400 cursor-pointer"
+                                 aria-hidden="true"
+                                 fill="currentColor"
+                                 viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                      clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                        @php
+                            $search = \Illuminate\Support\Facades\Request::input('search');
+                        @endphp
+                        <input type="search" id="table-search-users" name="search"
+                               class="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg rounded-tl-none rounded-bl-none bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                               placeholder="Search for exams" value="{{ $search }}">
+                    </div>
+                </form>
+                <a href="{{ route('exams.create') }}" type="button"
+                   class="my-2 text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                    Create exam
+                </a>
+            </div>
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3">
-                        id
+                        Name
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        user
+                        holding time
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        exam
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        score
+                        time
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Action
@@ -79,43 +90,42 @@
                 </tr>
                 </thead>
                 <tbody>
-                @if($results->count())
-                    @foreach($results as $result)
+                @if($userExams->count())
+                    @foreach($userExams as $exam)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <th scope="row"
                                 class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
                                 <div class="pl-3">
-                                    <div class="text-base font-semibold">{{ $loop->iteration }}</div>
+                                    <div class="text-base font-semibold">{{ $exam->name }}</div>
+                                    <div
+                                        class="w-48 font-normal text-gray-500 truncate overflow-ellipsis">{{ $exam->description }}</div>
                                 </div>
                             </th>
                             <td class="px-6 py-4">
-                                @php
-                                    $user = \App\Models\User::find($result->user_id);
-                                @endphp
-                                <p
-                                    class="font-medium text-base dark:text-base mr-2">{{ $user->name }}</p>
-                            </td>
-                            <td class="px-6 py-4">
-                                @php
-                                    $exam = \App\Models\Exam::find($result->exam_id);
-                                @endphp
-                                <p
-                                    class="font-medium text-base dark:text-base mr-2">{{ $exam->name }}</p>
+                                <div class="flex flex-col">
+                            <span style="width: 220px"
+                                  class="text-center bg-green-100 text-green-800 text-xs font-medium py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400">{{ \Carbon\Carbon::parse($exam->start_at)->format('l, d F Y , H:i') }}</span>
+                                    <span style="width: 220px"
+                                          class="mt-1 text-center bg-red-100 text-red-800 text-xs font-medium py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400">{{ \Carbon\Carbon::parse($exam->finish_at)->format('l, d F Y , H:i') }}</span>
+                                </div>
                             </td>
                             <td class="px-6 py-4">
                                 <p
-                                    class="font-medium text-base dark:text-base mr-2">{{ $result->score }}</p>
+                                    class="font-medium text-base dark:text-base mr-2">{{ $exam->time }} minutes</p>
                             </td>
                             <td class="px-6 py-4">
-                                <a href="{{ route('results.show', $result->id) }}"
-                                   class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-2">Show
-                                    responses</a>
+                                <a href="{{ route('exams.edit', $exam) }}"
+                                   class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-2">Edit
+                                    exam</a>
+                                <a href="{{ route('results.index','exam='.$exam->id) }}"
+                                   class="font-medium text-yellow-400 dark:text-yellow-400 hover:underline">Show
+                                    results</a>
                             </td>
                         </tr>
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="5" class="text-center">
+                        <td colspan="4" class="text-center">
                             <div
                                 class="flex justify-center m-7 p-4 text-sm text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300 dark:border-yellow-800"
                                 role="alert">
@@ -127,7 +137,7 @@
                                 </svg>
                                 <span class="sr-only">Info</span>
                                 <div>
-                                    <span class="font-medium">No result found!</span>
+                                    <span class="font-medium">No exam found! Please create first exam</span>
                                 </div>
                             </div>
                         </td>
@@ -137,18 +147,7 @@
             </table>
         </div>
         <div class="flex justify-center">
-            {{ $results->links() }}
+            {{ $userExams->links() }}
         </div>
     </div>
 @endsection
-
-@section('style')
-    <style>
-        @media (max-width: 768px) {
-            .flex-col-sm {
-                flex-direction: column;
-            }
-        }
-    </style>
-@endsection
-

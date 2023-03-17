@@ -28,17 +28,20 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::middleware('auth')->prefix('profile')->controller(DashboardController::class)->group(function () {
     Route::get('/', 'index')->name('profile');
     Route::get('/setting', 'setting')->name('setting');
+
     Route::post('/', 'updateProfile')->name('profile.update');
     Route::post('/p', 'updatePassword')->name('profile.update.password');
+
+    Route::get('/exams', 'exams')->name('profile.exams');
 });
 
-Route::resource('exams', ExamController::class)->middleware(['auth'])->except(['index', 'show', 'destroy']);
+Route::resource('profile/exams', ExamController::class)->middleware(['auth'])->except(['index', 'show', 'destroy']);
 
-Route::resource('questions', QuestionController::class)->middleware(['auth'])->except(['index', 'show']);
+Route::resource('profile/questions', QuestionController::class)->middleware(['auth'])->except(['index', 'show']);
 
-Route::resource('results', ResultController::class)->middleware(['auth'])->only(['index', 'show']);
+Route::resource('profile/results', ResultController::class)->middleware(['auth'])->only(['index', 'show']);
 
-Route::get('export/results', [ExportController::class, 'exportPdfExamResults'])->name('results.export.pdf');
+Route::get('profile/export/results', [ExportController::class, 'exportPdfExamResults'])->name('results.export.pdf');
 
 
 Route::controller(ExamController::class)->group(function () {
