@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Exam\ExamController;
+use App\Http\Controllers\Export\ExportController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Question\QuestionController;
 use App\Http\Controllers\Response\ResponsesController;
@@ -35,7 +36,9 @@ Route::resource('exams', ExamController::class)->middleware(['auth'])->except(['
 
 Route::resource('questions', QuestionController::class)->middleware(['auth'])->except(['index', 'show']);
 
-Route::resource('results', ResultController::class)->middleware(['auth'])->only(['index','show']);
+Route::resource('results', ResultController::class)->middleware(['auth'])->only(['index', 'show']);
+
+Route::get('export/results', [ExportController::class, 'exportPdfExamResults'])->name('results.export.pdf');
 
 
 Route::controller(ExamController::class)->group(function () {
