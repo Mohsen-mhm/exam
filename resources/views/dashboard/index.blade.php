@@ -43,6 +43,23 @@
                 </li>
             </ul>
         </div>
-
+        <div class="flex flex-wrap justify-center -mx-4">
+            <div id="toast-simple" type="button"
+               class="cursor-pointer flex items-center w-full max-w-xs p-4 space-x-4 text-gray-500 bg-white divide-x divide-gray-200 rounded-lg shadow-lg border border-gray-700 dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800 m-2"
+               role="alert">
+                <svg width="50" height="50" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+                     xmlns="http://www.w3.org/2000/svg" class="text-blue-400">
+                    <path
+                        d="M2 15V9C2 5.68629 4.68629 3 8 3H16C19.3137 3 22 5.68629 22 9V15C22 18.3137 19.3137 21 16 21H8C4.68629 21 2 18.3137 2 15Z"
+                        stroke="currentColor"/>
+                    <path d="M12 9V15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M9 9V15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M11.9999 12H14.5C15.3284 12 16 11.3284 16 10.5V10.5C16 9.67157 15.3284 9 14.5 9L12 9"
+                          stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <div class="pl-4 font-bold inline-flex">IP:&nbsp;&nbsp;<p
+                        class="text-blue-400">{{ request()->ip() }}</p></div>
+            </div>
+        </div>
     </div>
 @endsection

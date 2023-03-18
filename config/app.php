@@ -137,7 +137,7 @@ return [
 
     'superuser' => [
         'name' => 'your name',
-        'email' => 'your@email.com',
+        'email' => 'your.main@email.com',
         'password' => 'your-password',
     ],
 

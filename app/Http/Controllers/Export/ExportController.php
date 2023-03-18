@@ -21,7 +21,7 @@ class ExportController extends Controller
             'results' => $results,
             'exam' => $exam
         ];
-        
+
         $pdf = PDF::loadView('export.results', $data);
         return $pdf->download($exam->name . '-' . 'results.pdf');
     }

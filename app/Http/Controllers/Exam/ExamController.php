@@ -39,7 +39,7 @@ class ExamController extends Controller
         $status = $examService->storeExam($validData);
 
         if ($status)
-            return redirect(route('profile'))->with('success', 'Created successfully.');
+            return redirect(route('profile.exams'))->with('success', 'Created successfully.');
         else
             return redirect()->back()->withErrors('Unable to create exam...!');
     }

@@ -17,6 +17,9 @@ return new class extends Migration
             $table->id();
 
             $table->string('ip_address')->nullable();
+
+            $table->unsignedBigInteger('user_id');
+
             $table->string('user_agent')->nullable();
             $table->string('session_id')->nullable();
 
