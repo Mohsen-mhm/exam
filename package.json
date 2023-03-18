@@ -17,6 +17,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "chart.js": "^4.2.1",
         "flatpickr": "^4.6.13",
         "flowbite": "^1.6.3"
     }

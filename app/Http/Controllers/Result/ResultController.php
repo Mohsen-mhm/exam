@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Exam;
 use App\Models\Response;
 use App\Models\Result;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ResultController extends Controller
@@ -27,7 +26,24 @@ class ResultController extends Controller
         $results = Result::where('exam_id', $examID)
             ->paginate(10);
 
-        return view('dashboard.results.index', compact('results'));
+        foreach ($results as $result)
+            $labels[] = $result->user->name;
+        $data = $results->pluck('score');
+
+        $chartData = [
+            'labels' => collect($labels),
+            'datasets' => [
+                [
+                    'label' => 'Exam Results',
+                    'backgroundColor' => '#3490dc',
+                    'data' => $data
+                ]
+            ]
+        ];
+
+        $questionCount = $exam->questions->count();
+
+        return view('dashboard.results.index', compact(['results', 'chartData','questionCount']));
     }
 
     /**
@@ -44,6 +60,6 @@ class ResultController extends Controller
 
         $responses = Response::getResponses($result->user_id, $result->exam_id);
 
-        return view('dashboard.results.show', compact(['result','responses']));
+        return view('dashboard.results.show', compact(['result', 'responses']));
     }
 }
