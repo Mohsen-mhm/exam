@@ -43,7 +43,7 @@
                     class="text-red-400">{{ \App\Models\Result::count() }}</p></div>
         </a>
 
-        <div id="toast-simple" data-popover-target="popover-visitors" data-popover-placement="bottom" type="button"
+        <a href="{{ route('admin.visitors.index') }}" id="toast-simple" type="button"
              class="cursor-pointer flex items-center w-full max-w-xs p-4 space-x-4 text-gray-500 bg-white divide-x divide-gray-200 rounded-lg shadow-lg border border-gray-700 dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800 m-2"
              role="alert">
             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="text-yellow-400"
@@ -54,59 +54,7 @@
             </svg>
             <div class="pl-4 font-bold inline-flex">Visitors:&nbsp;&nbsp;<p
                     class="text-yellow-400">{{ \Illuminate\Support\Facades\DB::table('visitors')->count() }}</p></div>
-        </div>
-        <div data-popover id="popover-visitors" role="tooltip"
-             class="absolute z-10 invisible inline-block w-64 text-sm font-light text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
-            <div
-                class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
-                <h3 class="font-semibold text-gray-900 dark:text-white">Visitors</h3>
-            </div>
-            <div class="px-3 py-2">
-                <ul class="max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400">
-                    <li class="flex items-center font-normal">
-                        <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor"
-                             viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                  clip-rule="evenodd"></path>
-                        </svg>
-                        &nbsp;Today:&nbsp;&nbsp;<p
-                            class="text-yellow-400 font-bold">{{ \Illuminate\Support\Facades\DB::table('visitors')->whereDate('visited_at',\Carbon\Carbon::today())->count() }}</p>
-                    </li>
-                    <li class="flex items-center font-normal">
-                        <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor"
-                             viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                  clip-rule="evenodd"></path>
-                        </svg>
-                        &nbsp;Yesterday:&nbsp;&nbsp;<p
-                            class="text-yellow-400 font-bold">{{ \Illuminate\Support\Facades\DB::table('visitors')->whereDate('visited_at',\Carbon\Carbon::yesterday())->count() }}</p>
-                    </li>
-                    <li class="flex items-center font-normal">
-                        <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor"
-                             viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                  clip-rule="evenodd"></path>
-                        </svg>
-                        &nbsp;Last month:&nbsp;&nbsp;<p
-                            class="text-yellow-400 font-bold">{{ \Illuminate\Support\Facades\DB::table('visitors')->whereBetween('visited_at' ,[\Carbon\Carbon::now()->subMonth()->startOfMonth(), \Carbon\Carbon::now()])->count() }}</p>
-                    </li>
-                    <li class="flex items-center font-normal">
-                        <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor"
-                             viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                  clip-rule="evenodd"></path>
-                        </svg>
-                        &nbsp;All:&nbsp;&nbsp;<p
-                            class="text-yellow-400 font-bold">{{ \Illuminate\Support\Facades\DB::table('visitors')->count() }}</p>
-                    </li>
-                </ul>
-            </div>
-            <div data-popper-arrow></div>
-        </div>
+        </a>
     </div>
     <div class="flex flex-wrap justify-center">
         {!! \App\Http\Controllers\Admin\HomeController::calendar() !!}

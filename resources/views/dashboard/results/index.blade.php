@@ -157,8 +157,8 @@
 @endsection
 
 @section('script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js"></script>
     @if($results->count())
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js"></script>
         <script>
             var ctx = document.getElementById('exam-results-chart').getContext('2d');
             var chartData = @php echo json_encode($chartData); @endphp;
@@ -166,7 +166,7 @@
                 type: 'bar',
                 data: chartData,
                 options: {
-                    response: true,
+                    responsive: true,
                     scales: {
                         yAxes: [{
                             ticks: {

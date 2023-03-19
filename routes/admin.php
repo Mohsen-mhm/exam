@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\Question\QuestionController;
 use App\Http\Controllers\Admin\Result\ResultController;
 use App\Http\Controllers\Admin\User\UserController;
+use App\Http\Controllers\Admin\Visitor\VisitorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,3 +28,5 @@ Route::resource('exams', ExamController::class)->except(['show','destroy']);
 Route::resource('questions', QuestionController::class)->except(['index', 'show']);
 
 Route::resource('results', ResultController::class)->only(['index','show']);
+
+Route::get('visitors',[VisitorController::class, 'index'])->name('visitors.index');
