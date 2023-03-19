@@ -25,11 +25,13 @@ class ResultController extends Controller
 
         $results = Result::where('exam_id', $examID)
             ->paginate(10);
-
-        foreach ($results as $result)
-            $labels[] = $result->user->name;
+        if ($results->count()) {
+            foreach ($results as $result)
+                $labels[] = $result->user->name;
+        } else {
+            $labels = [];
+        }
         $data = $results->pluck('score');
-
         $chartData = [
             'labels' => collect($labels),
             'datasets' => [
@@ -43,7 +45,7 @@ class ResultController extends Controller
 
         $questionCount = $exam->questions->count();
 
-        return view('dashboard.results.index', compact(['results', 'chartData','questionCount']));
+        return view('dashboard.results.index', compact(['results', 'chartData', 'questionCount']));
     }
 
     /**

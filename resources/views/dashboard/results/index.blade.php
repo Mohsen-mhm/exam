@@ -142,7 +142,7 @@
         </div>
     </div>
     <div class="flex justify-center mt-7">
-            <canvas id="exam-results-chart"></canvas>
+        <canvas id="exam-results-chart"></canvas>
     </div>
 @endsection
 
@@ -158,27 +158,27 @@
 
 @section('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js"></script>
-    @php
-    @endphp
-    <script>
-        var ctx = document.getElementById('exam-results-chart').getContext('2d');
-        var chartData = @php echo json_encode($chartData); @endphp;
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: chartData,
-            options: {
-                response: true,
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true,
-                            max: {{ $questionCount }},
-                            stepSize: 1,
-                        }
-                    }]
+    @if($results->count())
+        <script>
+            var ctx = document.getElementById('exam-results-chart').getContext('2d');
+            var chartData = @php echo json_encode($chartData); @endphp;
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: chartData,
+                options: {
+                    response: true,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                max: {{ $questionCount }},
+                                stepSize: 1,
+                            }
+                        }]
+                    }
                 }
-            }
-        });
-    </script>
+            });
+        </script>
+    @endif
 @endsection
 
