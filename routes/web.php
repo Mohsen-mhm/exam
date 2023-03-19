@@ -33,6 +33,9 @@ Route::middleware('auth')->prefix('profile')->controller(DashboardController::cl
     Route::post('/p', 'updatePassword')->name('profile.update.password');
 
     Route::get('/exams', 'exams')->name('profile.exams');
+
+    Route::post('/two-factor', 'twoFactorAuth')->name('profile.2fa');
+
 });
 
 Route::resource('profile/exams', ExamController::class)->middleware(['auth'])->except(['index', 'show', 'destroy']);
@@ -51,3 +54,6 @@ Route::controller(ExamController::class)->group(function () {
 });
 Route::post('exam/{link}', [ResponsesController::class, 'examCheck'])->middleware(['auth'])->name('exam.check');
 
+Route::get('test', function (){
+    \App\Services\SMS\SMS::sendPattern('+989375074371');
+});

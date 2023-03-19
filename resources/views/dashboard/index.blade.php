@@ -46,7 +46,7 @@
         <div class="flex flex-wrap justify-center -mx-4">
 
             <div id="toast-simple" type="button"
-                 class="cursor-pointer flex items-center w-full max-w-xs p-4 space-x-4 text-gray-500 bg-white divide-x divide-gray-200 rounded-lg shadow-lg border border-gray-700 dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800 m-2"
+                 class="cursor-pointer flex items-center w-4/5 max-w-xs p-4 space-x-4 text-gray-500 bg-white divide-x divide-gray-200 rounded-lg shadow-lg border border-gray-700 dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800 m-2"
                  role="alert">
                 <svg width="50" height="50" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
                      xmlns="http://www.w3.org/2000/svg" class="text-red-400">
@@ -63,7 +63,7 @@
             </div>
 
             <div id="toast-simple" type="button"
-                 class="cursor-pointer flex items-center w-full max-w-xs p-4 space-x-4 text-gray-500 bg-white divide-x divide-gray-200 rounded-lg shadow-lg border border-gray-700 dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800 m-2"
+                 class="cursor-pointer flex items-center w-4/5 max-w-xs p-4 space-x-4 text-gray-500 bg-white divide-x divide-gray-200 rounded-lg shadow-lg border border-gray-700 dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800 m-2"
                  role="alert">
                 <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                      class="text-yellow-300">
@@ -79,7 +79,7 @@
             </div>
 
             <div id="toast-simple" type="button"
-                 class="cursor-pointer flex items-center w-full max-w-xs p-4 space-x-4 text-gray-500 bg-white divide-x divide-gray-200 rounded-lg shadow-lg border border-gray-700 dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800 m-2"
+                 class="cursor-pointer flex items-center w-4/5 max-w-xs p-4 space-x-4 text-gray-500 bg-white divide-x divide-gray-200 rounded-lg shadow-lg border border-gray-700 dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800 m-2"
                  role="alert">
                 @php
                     $nowVisit = \Illuminate\Support\Facades\DB::table('visitors')->where('user_id', \Illuminate\Support\Facades\Auth::id())->latest('visited_at')->first();

@@ -19,6 +19,7 @@
     "dependencies": {
         "chart.js": "^4.2.1",
         "flatpickr": "^4.6.13",
-        "flowbite": "^1.6.3"
+        "flowbite": "^1.6.3",
+        "intl-tel-input": "^17.0.21"
     }
 }

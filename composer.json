@@ -8,12 +8,14 @@
         "php": "^8.1",
         "barryvdh/laravel-debugbar": "^3.8",
         "barryvdh/laravel-dompdf": "^2.0",
-        "guzzlehttp/guzzle": "^7.2",
+        "illuminate/events": "^10.4",
+        "ippanel/php-rest-sdk": "^2.0",
         "jenssegers/agent": "^2.6",
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.7",
-        "laravel/ui": "^4.2"
+        "laravel/ui": "^4.2",
+        "psr/simple-cache": "^3.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

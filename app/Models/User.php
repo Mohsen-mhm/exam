@@ -20,6 +20,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone',
+        '2fa',
         'password',
         'avatar',
         'superuser',
@@ -57,6 +59,11 @@ class User extends Authenticatable
     public function results()
     {
         return $this->hasMany(Result::class);
+    }
+
+    public function active_code()
+    {
+        return $this->belongsTo(ActiveCode::class);
     }
 
     public function updateProfile($data, $user)

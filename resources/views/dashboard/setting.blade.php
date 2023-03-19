@@ -8,7 +8,8 @@
                 <li class="mr-2">
                     <a href="{{ route('profile') }}"
                        class="inline-flex p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group">
-                        <svg aria-hidden="true" class="w-5 h-5 mr-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300"
+                        <svg aria-hidden="true"
+                             class="w-5 h-5 mr-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300"
                              fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
@@ -19,7 +20,8 @@
                 <li class="mr-2">
                     <a href="{{ route('profile.exams') }}"
                        class="inline-flex p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group">
-                        <svg aria-hidden="true" class="w-5 h-5 mr-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300"
+                        <svg aria-hidden="true"
+                             class="w-5 h-5 mr-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300"
                              fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
@@ -42,7 +44,7 @@
                 </li>
             </ul>
         </div>
-        <div class="m-12">
+        <div class="m-7">
             <div class="flex justify-center z-0">
                 <div class="relative w-32 h-32 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
                     @if($user->avatar)
@@ -78,6 +80,47 @@
                             accept="image/jpeg,image/png,image/jpg">
                     </div>
                 </div>
+                <button type="submit"
+                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Change
+                </button>
+            </form>
+
+            <div class="flex justify-center items-center my-10">
+                <div class="border-t border-gray-300 w-1/3"></div>
+                <div class="px-2">
+                    <svg aria-hidden="true" class="w-8 h-8 text-yellow-300" fill="currentColor" viewBox="0 0 20 20"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                    </svg>
+                </div>
+                <div class="border-t border-gray-300 w-1/3"></div>
+            </div>
+
+            <h5 class="text-xl mb-3 font-medium text-gray-900 dark:text-white text-center">Two factor
+                authentication</h5>
+            <form method="POST" action="{{ route('profile.2fa') }}" class="pt-4" id="two-factor-auth">
+                @csrf
+                <div class="grid md:grid-cols-2 md:gap-6">
+                    <div class="relative z-0 w-full mb-6 group flex items-center justify-center">
+                        <label class="relative inline-flex items-center mb-4 cursor-pointer">
+                            <input type="checkbox" value="1" class="sr-only peer" name="2fa">
+                            <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                            <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Two factor</span>
+                        </label>
+                    </div>
+                    <input type="hidden" id="country_code" name="country_code">
+                    <div class="relative z-0 w-full mb-6 group flex items-center justify-center">
+                        <input type="tel" name="phone" id="phone"
+                               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                               placeholder=" " required/>
+                        <label for="phone"
+                               class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7">Phone
+                            number</label>
+                    </div>
+                </div>
+
                 <button type="submit"
                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     Change
@@ -133,4 +176,56 @@
             </form>
         </div>
     </div>
+@endsection
+
+@section('style')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+    <style>
+        .intl-tel-input {
+            background-color: #333;
+        }
+
+        .iti__selected-flag {
+            border-color: #ddd;
+        }
+
+        .iti__country-list {
+            background: #1F2937;
+            border-color: #2d3748;
+        }
+
+        .iti__country:hover {
+            background: #1a202c;
+        }
+
+        .iti__country-name {
+            color: #fff;
+        }
+
+        .iti__selected-dial-code {
+            color: #fff;
+        }
+
+        .iti__input {
+            color: #fff;
+        }
+    </style>
+@endsection
+
+@section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <script>
+        var input = document.querySelector("#phone");
+        var iti = window.intlTelInput(input, {
+            preferredCountries: ["ir"],
+            separateDialCode: true,
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+
+        document.querySelector("#two-factor-auth").addEventListener("submit", function(event) {
+            event.preventDefault();
+            document.querySelector("#country_code").value = iti.getSelectedCountryData().dialCode;
+            this.submit();
+        });
+    </script>
 @endsection
