@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Question\QuestionController;
 use App\Http\Controllers\Response\ResponsesController;
 use App\Http\Controllers\Result\ResultController;
+use App\Http\Controllers\SMS\SmsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -35,8 +36,8 @@ Route::middleware('auth')->prefix('profile')->controller(DashboardController::cl
     Route::get('/exams', 'exams')->name('profile.exams');
 
     Route::post('/two-factor', 'twoFactorAuth')->name('profile.2fa');
-
 });
+Route::post('/send-sms', [SmsController::class,'sendSMS']);
 
 Route::resource('profile/exams', ExamController::class)->middleware(['auth'])->except(['index', 'show', 'destroy']);
 
@@ -54,6 +55,7 @@ Route::controller(ExamController::class)->group(function () {
 });
 Route::post('exam/{link}', [ResponsesController::class, 'examCheck'])->middleware(['auth'])->name('exam.check');
 
-Route::get('test', function (){
-    \App\Services\SMS\SMS::sendPattern('+989375074371');
+Route::get('test', function () {
+    $send = new SmsController();
+    $send->sendSMS('+989375074371');
 });

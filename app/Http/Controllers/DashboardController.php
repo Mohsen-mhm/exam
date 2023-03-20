@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Dashboard\TwoFactorRequest;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Models\Exam;
@@ -77,8 +78,11 @@ class DashboardController extends Controller
         }
     }
 
-    public function twoFactorAuth(Request $request)
+    public function twoFactorAuth(TwoFactorRequest $request)
     {
-        dd($request->all());
+        foreach ($request->all() as $item => $value)
+            if ($item !== '_token')
+                $validData[$item] = $value;
+        dd($validData);
     }
 }

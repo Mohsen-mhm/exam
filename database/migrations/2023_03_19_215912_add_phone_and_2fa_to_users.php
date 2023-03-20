@@ -12,7 +12,8 @@ return new class extends Migration {
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('phone')->nullable()->after('email_verified_at');
-            $table->boolean('2fa')->default(0)->after('phone'); // Two-factor Authentication
+            $table->boolean('two_fa')->default(0)->after('phone'); // Two-factor Authentication
+            $table->string('country')->nullable()->after('two_fa');
         });
     }
 
@@ -22,7 +23,8 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('2fa');
+            $table->dropColumn('country');
+            $table->dropColumn('two_fa');
             $table->dropColumn('phone');
         });
     }

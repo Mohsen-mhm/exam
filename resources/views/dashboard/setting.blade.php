@@ -105,14 +105,17 @@
                 <div class="grid md:grid-cols-2 md:gap-6">
                     <div class="relative z-0 w-full mb-6 group flex items-center justify-center">
                         <label class="relative inline-flex items-center mb-4 cursor-pointer">
-                            <input type="checkbox" value="1" class="sr-only peer" name="2fa">
-                            <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                            <input type="checkbox" value="1" class="sr-only peer"
+                                   name="two_fa" {{ $user->two_fa ? 'checked' : '' }}>
+                            <div
+                                class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                             <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Two factor</span>
                         </label>
                     </div>
                     <input type="hidden" id="country_code" name="country_code">
+                    <input type="hidden" id="country" name="country">
                     <div class="relative z-0 w-full mb-6 group flex items-center justify-center">
-                        <input type="tel" name="phone" id="phone"
+                        <input type="tel" name="phone" id="phone" value="{{ old('phone', $user->phone) }}"
                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                placeholder=" " required/>
                         <label for="phone"
@@ -176,6 +179,34 @@
             </form>
         </div>
     </div>
+    <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+        Toggle modal
+    </button>
+    <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 hidden right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
+        <div class="relative w-full h-full max-w-md md:h-auto">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="authentication-modal">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+                <div class="px-6 py-6 lg:px-8">
+                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Enter one-time code send to your phone</h3>
+                    <form class="space-y-6" action="#">
+                        <div class="relative z-0 w-full mb-6 group flex" style="align-items: center">
+                            <input type="text" name="code" id="code"
+                                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                   placeholder=" " required/>
+                            <label for="code"
+                                   class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-5 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Your
+                                code</label>
+                        </div>
+                        <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('style')
@@ -217,15 +248,38 @@
     <script>
         var input = document.querySelector("#phone");
         var iti = window.intlTelInput(input, {
-            preferredCountries: ["ir"],
+            preferredCountries: ["{{ $user->country ? : 'ir' }}"],
             separateDialCode: true,
             utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
         });
 
-        document.querySelector("#two-factor-auth").addEventListener("submit", function(event) {
+        document.querySelector("#two-factor-auth").addEventListener("submit", function (event) {
             event.preventDefault();
             document.querySelector("#country_code").value = iti.getSelectedCountryData().dialCode;
-            this.submit();
+            document.querySelector("#country").value = iti.getSelectedCountryData().iso2;
+            var phoneNumber = "+" + iti.getSelectedCountryData().dialCode + document.querySelector("#phone").value;
+            console.log(phoneNumber)
+            sendSms(phoneNumber);
+            // this.submit();
         });
+
+        function sendSms(phoneNumber) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/send-sms');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // SMS sent successfully
+                    console.log('SMS sent successfully!');
+                    serverResponse = JSON.parse(this.responseText)
+                    phone = serverResponse.phone
+                } else {
+                    // Error sending SMS
+                    console.log('Error sending SMS.');
+                }
+            };
+            xhr.send('phone=' + encodeURIComponent(phoneNumber));
+        }
     </script>
 @endsection
