@@ -27,6 +27,7 @@ class TwoFactorRequest extends FormRequest
             'country_code' => ['required', 'string'],
             'country' => ['required', 'string'],
             'phone' => ['required', 'string'],
+            'code' => ['required', 'string'],
         ];
     }
 }

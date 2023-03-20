@@ -112,8 +112,8 @@
                             <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Two factor</span>
                         </label>
                     </div>
-                    <input type="hidden" id="country_code" name="country_code">
                     <input type="hidden" id="country" name="country">
+                    <input type="hidden" id="hidden-code" name="code">
                     <div class="relative z-0 w-full mb-6 group flex items-center justify-center">
                         <input type="tel" name="phone" id="phone" value="{{ old('phone', $user->phone) }}"
                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -126,7 +126,7 @@
 
                 <button type="submit"
                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Change
+                    Send SMS
                 </button>
             </form>
 
@@ -220,7 +220,7 @@
                 <div class="px-6 py-6 lg:px-8">
                     <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Enter one-time code send to your
                         phone</h3>
-                    <form class="space-y-6" action="#">
+                    <form class="space-y-6" action="#" id="enter-code">
                         <div class="relative z-0 w-full mb-6 group flex" style="align-items: center">
                             <input type="text" name="code" id="code"
                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -284,15 +284,23 @@
             utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
         });
 
-        document.querySelector("#two-factor-auth").addEventListener("submit", function (event) {
+        var twoFactorAuthForm = document.querySelector("#two-factor-auth")
+        var enterCodeForm = document.querySelector("#enter-code")
+
+        twoFactorAuthForm.addEventListener("submit", function (event) {
             event.preventDefault();
             document.querySelector("#country_code").value = iti.getSelectedCountryData().dialCode;
             document.querySelector("#country").value = iti.getSelectedCountryData().iso2;
             var phoneNumber = "+" + iti.getSelectedCountryData().dialCode + document.querySelector("#phone").value;
-            console.log(phoneNumber)
+
             sendSms(phoneNumber);
-            // this.submit();
         });
+
+        enterCodeForm.addEventListener("submit", function (event){
+            event.preventDefault();
+            document.querySelector("#hidden-code").value = document.querySelector("#code").value;
+            twoFactorAuthForm.submit();
+        })
 
         function sendSms(phoneNumber) {
             var xhr = new XMLHttpRequest();
@@ -302,7 +310,6 @@
             xhr.onload = function () {
                 if (xhr.status === 200) {
                     // SMS sent successfully
-                    console.log('SMS sent successfully!');
                     document.querySelector("#code-modal").click();
                     timer();
                     serverResponse = JSON.parse(this.responseText);
