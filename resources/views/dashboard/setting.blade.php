@@ -179,19 +179,47 @@
             </form>
         </div>
     </div>
-    <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+    <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal"
+            class="hidden block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            type="button" id="code-modal">
         Toggle modal
     </button>
-    <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 hidden right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
+    <div id="authentication-modal" tabindex="-1" aria-hidden="true"
+         class="fixed hidden top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
         <div class="relative w-full h-full max-w-md md:h-auto">
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="authentication-modal">
-                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                <button type="button"
+                        class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                        data-modal-hide="authentication-modal">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                              clip-rule="evenodd"></path>
+                    </svg>
                     <span class="sr-only">Close modal</span>
                 </button>
+                <div class="flex justify-center">
+                    <div id="toast-simple"
+                         class="flex items-center w-full max-w-xs p-4 space-x-4 text-gray-500 bg-white divide-x divide-gray-200 rounded-lg shadow dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800 mt-5"
+                         role="alert">
+                        <svg aria-hidden="true" class="w-5 h-5 text-blue-600 dark:text-blue-500" focusable="false"
+                             data-prefix="fas" data-icon="paper-plane" role="img" xmlns="http://www.w3.org/2000/svg"
+                             viewBox="0 0 512 512">
+                            <path fill="currentColor"
+                                  d="M511.6 36.86l-64 415.1c-1.5 9.734-7.375 18.22-15.97 23.05c-4.844 2.719-10.27 4.097-15.68 4.097c-4.188 0-8.319-.8154-12.29-2.472l-122.6-51.1l-50.86 76.29C226.3 508.5 219.8 512 212.8 512C201.3 512 192 502.7 192 491.2v-96.18c0-7.115 2.372-14.03 6.742-19.64L416 96l-293.7 264.3L19.69 317.5C8.438 312.8 .8125 302.2 .0625 289.1s5.469-23.72 16.06-29.77l448-255.1c10.69-6.109 23.88-5.547 34 1.406S513.5 24.72 511.6 36.86z"></path>
+                        </svg>
+                        <div class="flex flex-col">
+                            <div class="pl-4 text-sm font-normal">SMS sent successfully.</div>
+                            <div class="pl-4 text-sm font-bold text-yellow-300 flex">Expired:&nbsp; <p id="sms-timer">
+                                    10:00</p></div>
+                        </div>
+                    </div>
+                </div>
                 <div class="px-6 py-6 lg:px-8">
-                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Enter one-time code send to your phone</h3>
+                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Enter one-time code send to your
+                        phone</h3>
                     <form class="space-y-6" action="#">
                         <div class="relative z-0 w-full mb-6 group flex" style="align-items: center">
                             <input type="text" name="code" id="code"
@@ -201,7 +229,10 @@
                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-5 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Your
                                 code</label>
                         </div>
-                        <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                        <button type="submit"
+                                class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            Submit
+                        </button>
                     </form>
                 </div>
             </div>
@@ -268,18 +299,45 @@
             xhr.open('POST', '/send-sms');
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhr.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
-            xhr.onload = function() {
+            xhr.onload = function () {
                 if (xhr.status === 200) {
                     // SMS sent successfully
                     console.log('SMS sent successfully!');
-                    serverResponse = JSON.parse(this.responseText)
-                    phone = serverResponse.phone
+                    document.querySelector("#code-modal").click();
+                    timer();
+                    serverResponse = JSON.parse(this.responseText);
+                    phone = serverResponse.phone;
                 } else {
                     // Error sending SMS
                     console.log('Error sending SMS.');
                 }
             };
             xhr.send('phone=' + encodeURIComponent(phoneNumber));
+        }
+
+        function timer() {
+            var expiredTime = new Date();
+            expiredTime.setMinutes(expiredTime.getMinutes() + 10);
+
+            setInterval(function () {
+                let now = new Date().getTime();
+                let t = expiredTime - now;
+
+                if (t >= 0) {
+                    let minute = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+                    let sec = Math.floor((t % (1000 * 60)) / 1000);
+
+                    document.querySelector("#sms-timer").innerHTML = minute + ":" + sec;
+                    if (minute < 10) {
+                        document.querySelector("#sms-timer").innerHTML = "0" + minute + ":" + sec;
+                    }
+                    if (sec < 10) {
+                        document.querySelector("#sms-timer").innerHTML = "0" + minute + ":" + "0" + sec;
+                    }
+                } else {
+                    document.querySelector("#sms-timer").innerHTML = "The countdown is over!";
+                }
+            }, 1000);
         }
     </script>
 @endsection
