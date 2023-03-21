@@ -11,7 +11,7 @@ class ActiveCode extends Model
 {
     use HasFactory;
 
-    public static $expiredTime = 15;
+    public static $expiredTime = 10;
 
     protected $fillable = [
         'user_id',
@@ -35,4 +35,32 @@ class ActiveCode extends Model
         ]);
     }
 
+    public static function checkCodeIsTrue($enteredCode, $user)
+    {
+        $code = self::getCode($user);
+
+        if ($enteredCode == $code->code)
+            return true;
+        return false;
+    }
+
+    public static function checkExpirationIsValid($user)
+    {
+        $code = self::getCode($user);
+
+        if (Carbon::now() < $code->expired_at)
+            return true;
+        return false;
+    }
+
+    public static function getCode($user)
+    {
+        return self::where('user_id', $user->id)->latest('expired_at')->first();
+    }
+
+    public static function deleteCode($user)
+    {
+        $code = self::getCode($user);
+        return $code->delete();
+    }
 }

@@ -116,7 +116,7 @@
                     <input type="hidden" id="country_code" name="country_code">
                     <input type="hidden" id="hidden-code" name="code">
                     <div class="relative z-0 w-full mb-6 group flex items-center justify-center">
-                        <input type="tel" name="phone" id="phone" value="{{ old('phone', $user->phone) }}"
+                        <input type="tel" name="phone" id="phone" value="{{ old('phone') }}"
                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                placeholder=" " required/>
                         <label for="phone"
@@ -235,7 +235,7 @@
                             Submit
                         </button>
                         <div class="text-sm font-medium text-gray-500 dark:text-gray-300 flex justify-center">
-                            <a id="resend-sms" class="text-blue-700 hover:underline dark:text-blue-500 cursor-pointer">Resend
+                            <a id="resend-sms" class="hover:underline font-bold text-yellow-300 flex cursor-pointer">Resend
                                 code</a>
                         </div>
                     </form>
@@ -288,6 +288,7 @@
             separateDialCode: true,
             utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
         });
+        iti.setNumber("{{ $user->phone }}")
 
         var twoFactorAuthForm = document.querySelector("#two-factor-auth")
         var enterCodeForm = document.querySelector("#enter-code")
@@ -297,7 +298,7 @@
             document.querySelector("#country_code").value = iti.getSelectedCountryData().dialCode;
             document.querySelector("#country").value = iti.getSelectedCountryData().iso2;
             var phoneNumber = "+" + iti.getSelectedCountryData().dialCode + document.querySelector("#phone").value;
-
+            phoneNumber = phoneNumber.replace(/\s+/g, "");
             sendSms(phoneNumber, true);
         });
 
@@ -333,6 +334,7 @@
 
         function handleResendClick() {
             var phoneNumber = "+" + document.querySelector("#country_code").value + document.querySelector("#phone").value;
+            phoneNumber = phoneNumber.replace(/\s+/g, "");
             smsSent = true;
             sendSms(phoneNumber, false);
             document.querySelector("#resend-sms").innerHTML = "Send successfully";

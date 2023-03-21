@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Dashboard\TwoFactorRequest;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UpdateProfileRequest;
+use App\Models\ActiveCode;
 use App\Models\Exam;
+use App\Services\ActiveCode\ActiveCodeService;
+use App\Services\Admin\UserService;
 use App\Services\Dashboard\DashboardService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -78,12 +82,30 @@ class DashboardController extends Controller
         }
     }
 
-    public function twoFactorAuth(TwoFactorRequest $request)
+    public function twoFactorAuth(TwoFactorRequest $request, ActiveCodeService $activeCodeService, UserService $userService)
     {
-        foreach ($request->all() as $item => $value)
-            if ($item !== '_token')
-                $validData[$item] = $value;
+        $code = $request->input('code');
+        $user = $request->user();
 
-        dd($validData);
+        foreach ($request->all() as $item => $value) {
+            if ($item !== '_token' and $item !== 'code')
+                $validData[$item] = $value;
+            if ($item === 'phone')
+                $validData[$item] = preg_replace('/\s+/', '', $value);
+        }
+
+        if (!$activeCodeService->checkCodeIsTrue($code, $user)) {
+            return redirect()->back()->withErrors('Code you entered is incorrect...!');
+        } elseif (!$activeCodeService->checkExpirationIsValid($user)) {
+            return redirect()->back()->withErrors('Code you entered is expired...!');
+        } else {
+            $activeCodeService->deleteCode($user);
+            $status = $userService->updateUser($validData, $user);
+
+            if ($status)
+                return redirect()->back()->with('success', 'Updated successfully.');
+            else
+                return redirect()->back()->withErrors('Unable to update profile...!');
+        }
     }
 }
