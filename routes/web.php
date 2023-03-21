@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Exam\ExamController;
 use App\Http\Controllers\Export\ExportController;
@@ -23,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
+Route::post('/login/two-factor',[LoginController::class, 'authenticateTwoFactor'])->name('authenticate.two.factor');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -55,7 +57,3 @@ Route::controller(ExamController::class)->group(function () {
 });
 Route::post('exam/{link}', [ResponsesController::class, 'examCheck'])->middleware(['auth'])->name('exam.check');
 
-Route::get('test', function () {
-    $send = new SmsController();
-    $send->sendSMS('+989375074371');
-});

@@ -223,7 +223,7 @@
                         phone</h3>
                     <form class="space-y-6" action="#" id="enter-code">
                         <div class="relative z-0 w-full mb-6 group flex" style="align-items: center">
-                            <input type="text" name="code" id="code"
+                            <input type="number" name="code" id="code"
                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                    placeholder=" " required/>
                             <label for="code"
@@ -392,7 +392,10 @@
                         expiredTimerEl.innerHTML = "0" + minute + ":" + "0" + sec;
                     }
                 } else {
-                    expiredTimerEl.innerHTML = "The countdown is over!";
+                    expiredTimerEl.innerHTML = "Code expired!";
+                    setTimeout(function () {
+                        document.querySelector("#code-modal").click();
+                    }, 700)
                 }
             }, 500);
         }
