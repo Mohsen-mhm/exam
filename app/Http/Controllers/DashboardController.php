@@ -83,7 +83,7 @@ class DashboardController extends Controller
         foreach ($request->all() as $item => $value)
             if ($item !== '_token')
                 $validData[$item] = $value;
-        
+
         dd($validData);
     }
 }

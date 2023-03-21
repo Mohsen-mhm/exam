@@ -113,6 +113,7 @@
                         </label>
                     </div>
                     <input type="hidden" id="country" name="country">
+                    <input type="hidden" id="country_code" name="country_code">
                     <input type="hidden" id="hidden-code" name="code">
                     <div class="relative z-0 w-full mb-6 group flex items-center justify-center">
                         <input type="tel" name="phone" id="phone" value="{{ old('phone', $user->phone) }}"
@@ -233,6 +234,10 @@
                                 class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             Submit
                         </button>
+                        <div class="text-sm font-medium text-gray-500 dark:text-gray-300 flex justify-center">
+                            <a id="resend-sms" class="text-blue-700 hover:underline dark:text-blue-500 cursor-pointer">Resend
+                                code</a>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -293,16 +298,16 @@
             document.querySelector("#country").value = iti.getSelectedCountryData().iso2;
             var phoneNumber = "+" + iti.getSelectedCountryData().dialCode + document.querySelector("#phone").value;
 
-            sendSms(phoneNumber);
+            sendSms(phoneNumber, true);
         });
 
-        enterCodeForm.addEventListener("submit", function (event){
+        enterCodeForm.addEventListener("submit", function (event) {
             event.preventDefault();
             document.querySelector("#hidden-code").value = document.querySelector("#code").value;
             twoFactorAuthForm.submit();
         })
 
-        function sendSms(phoneNumber) {
+        function sendSms(phoneNumber, showModal) {
             var xhr = new XMLHttpRequest();
             xhr.open('POST', '/send-sms');
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -310,16 +315,58 @@
             xhr.onload = function () {
                 if (xhr.status === 200) {
                     // SMS sent successfully
-                    document.querySelector("#code-modal").click();
-                    timer();
-                    serverResponse = JSON.parse(this.responseText);
-                    phone = serverResponse.phone;
+                    if (showModal) {
+                        document.querySelector("#code-modal").click();
+                        timer();
+                        resendTimer();
+                    }
+                    document.querySelector("#resend-sms").removeEventListener("click", handleResendClick)
                 } else {
                     // Error sending SMS
                     console.log('Error sending SMS.');
                 }
             };
             xhr.send('phone=' + encodeURIComponent(phoneNumber));
+        }
+
+        var smsSent = false;
+
+        function handleResendClick() {
+            var phoneNumber = "+" + document.querySelector("#country_code").value + document.querySelector("#phone").value;
+            smsSent = true;
+            sendSms(phoneNumber, false);
+            document.querySelector("#resend-sms").innerHTML = "Send successfully";
+        }
+
+        function resendTimer() {
+            var expiredTime = new Date();
+            expiredTime.setMinutes(expiredTime.getMinutes() + 2);
+
+
+            var intervalId = setInterval(function () {
+                let now = new Date().getTime();
+                let t = expiredTime - now;
+                let resendEl = document.querySelector("#resend-sms");
+
+                if (t >= 0) {
+                    let minute = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+                    let sec = Math.floor((t % (1000 * 60)) / 1000);
+
+                    resendEl.innerHTML = "Resend in: " + minute + ":" + sec;
+                    if (minute < 10) {
+                        resendEl.innerHTML = "Resend in: " + "0" + minute + ":" + sec;
+                    }
+                    if (sec < 10) {
+                        resendEl.innerHTML = "Resend in: " + "0" + minute + ":" + "0" + sec;
+                    }
+                } else {
+                    clearInterval(intervalId);
+                    resendEl.innerHTML = "Resend code";
+                    if (!smsSent) {
+                        resendEl.addEventListener("click", handleResendClick);
+                    }
+                }
+            }, 500);
         }
 
         function timer() {
@@ -329,22 +376,23 @@
             setInterval(function () {
                 let now = new Date().getTime();
                 let t = expiredTime - now;
+                expiredTimerEl = document.querySelector("#sms-timer");
 
                 if (t >= 0) {
                     let minute = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
                     let sec = Math.floor((t % (1000 * 60)) / 1000);
 
-                    document.querySelector("#sms-timer").innerHTML = minute + ":" + sec;
+                    expiredTimerEl.innerHTML = minute + ":" + sec;
                     if (minute < 10) {
-                        document.querySelector("#sms-timer").innerHTML = "0" + minute + ":" + sec;
+                        expiredTimerEl.innerHTML = "0" + minute + ":" + sec;
                     }
                     if (sec < 10) {
-                        document.querySelector("#sms-timer").innerHTML = "0" + minute + ":" + "0" + sec;
+                        expiredTimerEl.innerHTML = "0" + minute + ":" + "0" + sec;
                     }
                 } else {
-                    document.querySelector("#sms-timer").innerHTML = "The countdown is over!";
+                    expiredTimerEl.innerHTML = "The countdown is over!";
                 }
-            }, 1000);
+            }, 500);
         }
     </script>
 @endsection
