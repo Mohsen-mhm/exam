@@ -3,7 +3,9 @@
 namespace App\Services\SMS;
 
 use App\Models\ActiveCode;
+use App\Models\User;
 use Error;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use IPPanel\Client;
 use IPPanel\Errors\HttpException;

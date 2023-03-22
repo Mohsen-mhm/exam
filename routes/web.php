@@ -24,7 +24,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
-Route::post('/login/two-factor',[LoginController::class, 'authenticateTwoFactor'])->name('authenticate.two.factor');
+Route::get('/login/{user}/two-factor',[LoginController::class, 'showTwoFactorForm'])->name('show.two.factor.form');
+Route::post('/login/{user}/two-factor',[LoginController::class, 'authenticateTwoFactor'])->name('authenticate.two.factor');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 

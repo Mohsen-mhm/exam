@@ -2,8 +2,12 @@
 
 @section('content')
     <div class="flex justify-center">
+        @php
+            $user = \App\Models\User::getUser(request()->user);
+        @endphp
         <div
             class="flex flex-col justify-center items-center w-4/5 p-4 min-h-0 max-h-96 bg-white border border-gray-200 rounded-lg shadow-2xl sm:p-6 md:p-8 dark:bg-gray-800/70 dark:border-gray-700">
+        <x-toast/>
             <div class="w-auto flex justify-center mb-5">
                 <div id="toast-simple"
                      class="flex items-center w-full p-4 space-x-4 text-gray-500 bg-white divide-x divide-gray-200 rounded-lg shadow dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800 mt-5"
@@ -18,8 +22,6 @@
                         <div class="pl-4 text-sm font-normal flex">SMS sent successfully to:&nbsp; <p
                                 id="phone">{{ "+" . $user->country_code . $user->phone }}</p>.
                         </div>
-                        <div class="pl-4 text-sm font-bold text-yellow-300 flex">Expired:&nbsp; <p id="sms-timer">
-                                10:00</p></div>
                     </div>
                 </div>
             </div>
@@ -45,36 +47,4 @@
             </form>
         </div>
     </div>
-@endsection
-
-@section('script')
-    <script>
-        function timer() {
-            var expiredTime = new Date();
-            expiredTime.setMinutes(expiredTime.getMinutes() + 10);
-
-            setInterval(function () {
-                let now = new Date().getTime();
-                let t = expiredTime - now;
-                expiredTimerEl = document.querySelector("#sms-timer");
-
-                if (t >= 0) {
-                    let minute = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
-                    let sec = Math.floor((t % (1000 * 60)) / 1000);
-
-                    expiredTimerEl.innerHTML = minute + ":" + sec;
-                    if (minute < 10) {
-                        expiredTimerEl.innerHTML = "0" + minute + ":" + sec;
-                    }
-                    if (sec < 10) {
-                        expiredTimerEl.innerHTML = "0" + minute + ":" + "0" + sec;
-                    }
-                } else {
-                    expiredTimerEl.innerHTML = "Code expired!";
-                }
-            }, 500);
-        }
-
-        timer();
-    </script>
 @endsection

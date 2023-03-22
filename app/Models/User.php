@@ -87,4 +87,9 @@ class User extends Authenticatable
     {
         return $user->update($data);
     }
+
+    public static function getUser($id)
+    {
+        return self::whereId($id)->first();
+    }
 }
