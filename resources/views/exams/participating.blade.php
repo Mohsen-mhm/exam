@@ -121,15 +121,20 @@
                         class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">{{ $exam->questions->count() }} questions</span>
                 </li>
             </ul>
-            @if($exam->questions->count())
+            @if($exam->questions->count() && !\Carbon\Carbon::now()->gte($exam->finish_at))
                 <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" type="button"
                         class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">
                     Participation
                 </button>
-            @else
+            @elseif($exam->questions->count() == 0)
                 <button type="button"
                         class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">
                     No question for this exam yet
+                </button>
+            @elseif(\Carbon\Carbon::now()->gte($exam->finish_at))
+                <button type="button"
+                        class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">
+                    Finished
                 </button>
             @endif
         </div>
@@ -181,14 +186,27 @@
 
         copyButton.addEventListener('click', function () {
             var textToCopy = this.getAttribute('data-copy-text');
-            navigator.clipboard.writeText(textToCopy).then(function () {
-                popoverText.innerHTML = 'Copied !';
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(textToCopy).then(function () {
+                    popoverText.innerHTML = 'Copied!';
+                    setTimeout(function () {
+                        popoverText.innerHTML = 'Copy link';
+                    }, 1500);
+                }, function (err) {
+                    console.error('Could not copy text: ', err);
+                });
+            } else {
+                var tempTextarea = document.createElement('textarea');
+                tempTextarea.value = textToCopy;
+                document.body.appendChild(tempTextarea);
+                tempTextarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempTextarea);
+                popoverText.innerHTML = 'Copied!';
                 setTimeout(function () {
                     popoverText.innerHTML = 'Copy link';
-                }, 1500)
-            }, function (err) {
-                console.error('Could not copy text: ', err);
-            });
+                }, 1500);
+            }
         });
     </script>
 @endsection
