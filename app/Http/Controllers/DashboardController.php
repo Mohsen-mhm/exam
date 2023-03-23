@@ -93,6 +93,8 @@ class DashboardController extends Controller
             if ($item === 'phone')
                 $validData[$item] = preg_replace('/\s+/', '', $value);
         }
+        if (!$request->input('two_fa'))
+            $validData['two_fa'] = 0;
 
         if (!$activeCodeService->checkCodeIsTrue($code, $user)) {
             return redirect()->back()->withErrors('Code you entered is incorrect...!');
