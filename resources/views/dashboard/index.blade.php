@@ -71,7 +71,7 @@
                           d="m15 12-4-4m4 4-4 4m4-4H5m5 9a9 9 0 1 0 0-18"/>
                 </svg>
                 @php
-                    $lastVisit = \Illuminate\Support\Facades\DB::table('visitors')->where('user_id', \Illuminate\Support\Facades\Auth::id())->latest('visited_at')->skip(1)->first();
+                    $lastVisit = \Illuminate\Support\Facades\DB::table('visitors')->where('user_id', \Illuminate\Support\Facades\Auth::id())->latest('visited_at')->first();
                 @endphp
                 <div class="pl-4 font-bold inline-flex text-sm">Last login:&nbsp;&nbsp;<p
                         class="font-medium text-yellow-300">{{ \Carbon\Carbon::parse($lastVisit->visited_at)->diffForHumans() }}</p>
