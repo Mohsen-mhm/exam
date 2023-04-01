@@ -16,6 +16,7 @@ class AuthController extends Controller
     {
         try {
             $credentials = $request->only('email', 'password');
+
             if (Auth::attempt($credentials)) {
                 $user = Auth::user();
                 $token = $user->createToken('authToken')->accessToken;
@@ -28,10 +29,12 @@ class AuthController extends Controller
                     ]
                 ], Response::HTTP_OK);
             }
+
             return response([
                 'message' => 'Invalid credentials',
                 'data' => []
             ], Response::HTTP_UNAUTHORIZED);
+
         } catch (\Exception $exception) {
             return response([
                 'message' => $exception->getMessage(),
@@ -43,7 +46,7 @@ class AuthController extends Controller
     public function register(RegisterRequest $request): Response
     {
         try {
-            $user = User::create([
+            $user = User::storeUser([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password)
