@@ -21,25 +21,15 @@ class AuthController extends Controller
                 $user = Auth::user();
                 $token = $user->createToken('authToken')->accessToken;
 
-                return response([
-                    'message' => 'Login successfully',
-                    'data' => [
-                        'user' => $user,
-                        'token' => $token
-                    ]
+                return $this->response(true, 'Login successfully', [
+                    'user' => $user,
+                    'token' => $token
                 ], Response::HTTP_OK);
             }
-
-            return response([
-                'message' => 'Invalid credentials',
-                'data' => []
-            ], Response::HTTP_UNAUTHORIZED);
+            return $this->response(false, 'Invalid credentials', [], Response::HTTP_UNAUTHORIZED);
 
         } catch (\Exception $exception) {
-            return response([
-                'message' => $exception->getMessage(),
-                'data' => []
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->response(false, $exception->getMessage(), [], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -53,20 +43,13 @@ class AuthController extends Controller
             ]);
 
             $token = $user->createToken('authToken')->accessToken;
-
-            return response([
-                'message' => 'Register successfully',
-                'data' => [
-                    'user' => $user,
-                    'token' => $token
-                ]
+            return $this->response(true, 'Register successfully', [
+                'user' => $user,
+                'token' => $token
             ], Response::HTTP_OK);
 
         } catch (\Exception $exception) {
-            return response([
-                'message' => $exception->getMessage(),
-                'data' => []
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->response(false, $exception->getMessage(), [], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }
