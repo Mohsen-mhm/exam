@@ -22,7 +22,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Auth::routes();
 Route::get('/login/{user}/two-factor',[LoginController::class, 'showTwoFactorForm'])->name('show.two.factor.form');
 Route::post('/login/{user}/two-factor',[LoginController::class, 'authenticateTwoFactor'])->name('authenticate.two.factor');
