@@ -29,7 +29,7 @@ Route::prefix('v1')->group(function () {
         Route::get('user', 'getUser')->middleware('auth:sanctum');
     });
     Route::middleware('auth:sanctum')->group(function () {
-        Route::controller(DashboardController::class)->group(function () {
+        Route::controller(DashboardController::class)->prefix('profile')->group(function () {
             Route::post('update-profile', 'updateProfile');
         });
     });
