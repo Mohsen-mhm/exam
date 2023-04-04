@@ -3,15 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Dashboard\TwoFactorRequest;
-use App\Http\Requests\UpdatePasswordRequest;
-use App\Http\Requests\UpdateProfileRequest;
-use App\Models\ActiveCode;
+use App\Http\Requests\Dashboard\UpdatePasswordRequest;
+use App\Http\Requests\Dashboard\UpdateProfileRequest;
 use App\Models\Exam;
 use App\Services\ActiveCode\ActiveCodeService;
 use App\Services\Admin\UserService;
 use App\Services\Dashboard\DashboardService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 

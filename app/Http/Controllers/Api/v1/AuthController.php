@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\v1\LoginRequest;
-use App\Http\Requests\Api\v1\RegisterRequest;
+use App\Http\Requests\Api\v1\Auth\LoginRequest;
+use App\Http\Requests\Api\v1\Auth\RegisterRequest;
 use App\Models\User;
 use App\Services\ActiveCode\ActiveCodeService;
 use App\Services\SMS\SMS;
@@ -33,11 +33,11 @@ class AuthController extends Controller
                     ], Response::HTTP_OK);
                 }
 
-                $token = $user->createToken('authToken')->accessToken;
+                $token = $user->createToken('API TOKEN')->plainTextToken;
 
                 return $this->response(true, 'Login successfully', [
                     'user' => $user,
-                    'token' => $token
+                    'api_token' => $token
                 ], Response::HTTP_OK);
             }
             return $this->response(false, 'Invalid credentials', [], Response::HTTP_UNAUTHORIZED);
@@ -60,11 +60,11 @@ class AuthController extends Controller
                 $activeCodeService->deleteCode($user);
                 Auth::login($user);
 
-                $token = $user->createToken('authToken')->accessToken;
+                $token = $user->createToken('API TOKEN')->plainTextToken;
 
                 return $this->response(true, 'Login successfully', [
                     'user' => $user,
-                    'token' => $token
+                    'api_token' => $token
                 ], Response::HTTP_OK);
             }
         } catch (\Exception $exception) {
@@ -81,10 +81,22 @@ class AuthController extends Controller
                 'password' => Hash::make($request->password)
             ]);
 
-            $token = $user->createToken('authToken')->accessToken;
+            $token = $user->createToken('API TOKEN')->plainTextToken;
             return $this->response(true, 'Register successfully', [
                 'user' => $user,
-                'token' => $token
+                'api_token' => $token
+            ], Response::HTTP_OK);
+
+        } catch (\Exception $exception) {
+            return $this->response(false, $exception->getMessage(), [], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function getUser(Request $request)
+    {
+        try {
+            return $this->response(true, 'User data', [
+                'user' => auth()->user(),
             ], Response::HTTP_OK);
 
         } catch (\Exception $exception) {

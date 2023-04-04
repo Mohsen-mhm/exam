@@ -17,9 +17,17 @@ return new class extends Migration {
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+
+            $table->string('phone')->nullable();
+            $table->boolean('two_fa')->default(0);
+            $table->string('country')->nullable();
+            $table->string('country_code')->nullable();
+
             $table->string('password');
+
             $table->boolean('superuser')->default(0);
             $table->string('avatar')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
         });
