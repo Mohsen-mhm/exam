@@ -16,10 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
-
 Route::prefix('v1')->group(function () {
     Route::controller(AuthController::class)->group(function () {
         Route::post('login', 'login');
@@ -28,9 +24,11 @@ Route::prefix('v1')->group(function () {
         Route::post('register', 'register');
         Route::get('user', 'getUser')->middleware('auth:sanctum');
     });
+
     Route::middleware('auth:sanctum')->group(function () {
         Route::controller(DashboardController::class)->prefix('profile')->group(function () {
             Route::post('update-profile', 'updateProfile');
+            Route::post('update-password', 'updatePassword');
         });
     });
 });
