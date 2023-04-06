@@ -49,8 +49,12 @@ class AuthController extends Controller
 
     public function authenticateTwoFactor(Request $request, ActiveCodeService $activeCodeService, $userId): Response
     {
-        $user = User::getUser($userId);
         try {
+            $user = User::getUser($userId);
+            
+            if (!$user->two_fa) {
+                return $this->response(false, 'Two factor authenticate in not active for this user', [], Response::HTTP_BAD_REQUEST);
+            }
 
             if (!$activeCodeService->checkExpirationIsValid($user)) {
                 return $this->response(false, 'Code you entered is expired, login again to send new code...!', [], Response::HTTP_REQUEST_TIMEOUT);
@@ -96,9 +100,21 @@ class AuthController extends Controller
     {
         try {
             return $this->response(true, 'User data', [
-                'user' => auth()->user(),
+                'user' => $request->user(),
             ], Response::HTTP_OK);
 
+        } catch (\Exception $exception) {
+            return $this->response(false, $exception->getMessage(), [], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function logout(Request $request)
+    {
+        try {
+            auth()->logout();
+            $request->user()->tokens()->delete();
+
+            return $this->response(true, 'Logout successfully.', [], Response::HTTP_OK);
         } catch (\Exception $exception) {
             return $this->response(false, $exception->getMessage(), [], Response::HTTP_INTERNAL_SERVER_ERROR);
         }

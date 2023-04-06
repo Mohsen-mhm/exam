@@ -22,7 +22,11 @@ Route::prefix('v1')->group(function () {
         Route::post('login/{user}/two-factor', 'authenticateTwoFactor')->name('api.authenticate.two.factor');
 
         Route::post('register', 'register');
-        Route::get('user', 'getUser')->middleware('auth:sanctum');
+
+        Route::middleware('auth:sanctum')->group(function () {
+            Route::post('logout', 'logout');
+            Route::get('user', 'getUser');
+        });
     });
 
     Route::middleware('auth:sanctum')->group(function () {
