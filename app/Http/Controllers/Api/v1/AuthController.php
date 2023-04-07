@@ -29,7 +29,7 @@ class AuthController extends Controller
                     Auth::logout();
                     return $this->response(true, 'Need two-factor authentication, SMS send successfully', [
                         'user' => $user,
-                        'url' => url(route('api.authenticate.two.factor', $user->id))
+                        'url' => url(route('api.login.authenticate.two.factor', $user->id))
                     ], Response::HTTP_OK);
                 }
 
@@ -51,7 +51,7 @@ class AuthController extends Controller
     {
         try {
             $user = User::getUser($userId);
-            
+
             if (!$user->two_fa) {
                 return $this->response(false, 'Two factor authenticate in not active for this user', [], Response::HTTP_BAD_REQUEST);
             }
@@ -111,10 +111,13 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         try {
-            auth()->logout();
-            $request->user()->tokens()->delete();
+            if (auth()->check()) {
+                $request->user()->tokens()->delete();
 
-            return $this->response(true, 'Logout successfully.', [], Response::HTTP_OK);
+                return $this->response(true, 'Logout successfully.', [], Response::HTTP_OK);
+            } else {
+                return $this->response(false, 'Unauthenticated', [], Response::HTTP_UNAUTHORIZED);
+            }
         } catch (\Exception $exception) {
             return $this->response(false, $exception->getMessage(), [], Response::HTTP_INTERNAL_SERVER_ERROR);
         }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\v1\AuthController;
 use App\Http\Controllers\Api\v1\DashboardController;
+use App\Http\Controllers\Api\v1\SmsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
     Route::controller(AuthController::class)->group(function () {
         Route::post('login', 'login');
-        Route::post('login/{user}/two-factor', 'authenticateTwoFactor')->name('api.authenticate.two.factor');
+        Route::post('login/{user}/two-factor', 'authenticateTwoFactor')->name('api.login.authenticate.two.factor');
 
         Route::post('register', 'register');
 
@@ -30,9 +31,12 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::middleware('auth:sanctum')->group(function () {
+        Route::post('send-sms', [SmsController::class, 'sendSMS']);
+
         Route::controller(DashboardController::class)->prefix('profile')->group(function () {
             Route::post('update-profile', 'updateProfile');
             Route::post('update-password', 'updatePassword');
+            Route::post('enable-two-factor', 'twoFactorAuth');
         });
     });
 });

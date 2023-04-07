@@ -39,7 +39,7 @@ Route::middleware('auth')->prefix('profile')->controller(DashboardController::cl
 
     Route::post('/two-factor', 'twoFactorAuth')->name('profile.2fa');
 });
-Route::post('/send-sms', [SmsController::class,'sendSMS']);
+Route::post('/send-sms', [SmsController::class, 'sendSMS']);
 
 Route::resource('profile/exams', ExamController::class)->middleware(['auth'])->except(['index', 'show', 'destroy']);
 
