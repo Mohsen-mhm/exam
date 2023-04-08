@@ -110,9 +110,9 @@ class AuthController extends Controller
 
     public function getUsers(Request $request)
     {
-        $users = User::paginate(5);
         try {
-            return $this->response(true, 'User data', [
+            $users = User::paginate(5);
+            return $this->response(true, 'Users data', [
                 'users' => $users,
             ], Response::HTTP_OK);
 
