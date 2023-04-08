@@ -108,6 +108,19 @@ class AuthController extends Controller
         }
     }
 
+    public function getUsers(Request $request)
+    {
+        $users = User::paginate(5);
+        try {
+            return $this->response(true, 'User data', [
+                'users' => $users,
+            ], Response::HTTP_OK);
+
+        } catch (\Exception $exception) {
+            return $this->response(false, $exception->getMessage(), [], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
     public function logout(Request $request)
     {
         try {

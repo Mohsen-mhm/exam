@@ -27,6 +27,7 @@ Route::prefix('v1')->group(function () {
         Route::middleware('auth:sanctum')->group(function () {
             Route::post('logout', 'logout');
             Route::get('user', 'getUser');
+            Route::get('users', 'getUsers');
         });
     });
 
