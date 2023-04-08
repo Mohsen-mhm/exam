@@ -63,7 +63,7 @@ class ExamController extends Controller
                 ->orWhere('question', 'LIKE', '%' . $search . '%');
         })->where('exam_id', $exam->id)->paginate(10);
 
-        return view('dashboard.exams.edit', compact(['exam','questions']));
+        return view('dashboard.exams.edit', compact(['exam', 'questions']));
     }
 
     /**
