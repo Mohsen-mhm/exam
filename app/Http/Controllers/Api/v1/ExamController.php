@@ -22,7 +22,6 @@ class ExamController extends Controller
             } else {
                 return $this->response(false, 'Exam not found.', [], Response::HTTP_NOT_FOUND);
             }
-
         } catch (\Exception $exception) {
             return $this->response(false, $exception->getMessage(), [], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
