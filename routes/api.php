@@ -43,11 +43,12 @@ Route::prefix('v1')->group(function () {
         });
 
         Route::controller(ExamController::class)->group(function () {
-            Route::get('exam/{exam}', 'getExam');
-            Route::get('exams', 'getExams');
+            Route::get('get-exam/{exam}', 'getExam');
+            Route::get('get-exams', 'getExams');
 
-            Route::prefix('exam')->group(function (){
-
+            Route::prefix('exam')->group(function () {
+                Route::post('create', 'store');
+                Route::post('edit', 'update');
             });
         });
     });
