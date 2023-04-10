@@ -4,13 +4,11 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Exam;
-use App\Models\User;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ExamController extends Controller
 {
-    public function getExam(Request $request, $examId)
+    public function getExam($examId)
     {
         try {
             $exam = Exam::find($examId);
@@ -27,7 +25,7 @@ class ExamController extends Controller
         }
     }
 
-    public function getExams(Request $request)
+    public function getExams()
     {
         try {
             $exams = Exam::paginate(5);
