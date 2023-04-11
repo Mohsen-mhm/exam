@@ -49,7 +49,6 @@ class ExamController extends Controller
     public function store(StoreExamRequest $request, ExamService $examService)
     {
         try {
-
             foreach ($request->all() as $key => $value) {
                 $validData[$key] = $value;
             }
@@ -63,6 +62,7 @@ class ExamController extends Controller
                 return $this->response(true, 'Created successfully.', [
                     'exam' => $exam,
                 ], Response::HTTP_OK);
+
             } else {
                 return $this->response(false, 'Unable to create exam...!', [], Response::HTTP_INTERNAL_SERVER_ERROR);
             }
