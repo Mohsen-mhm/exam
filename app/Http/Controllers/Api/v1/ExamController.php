@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\v1\Exams\StoreExamRequest;
+use App\Http\Requests\Api\v1\Exams\UpdateExamRequest;
 use App\Models\Exam;
 use App\Services\ExamService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -65,6 +67,38 @@ class ExamController extends Controller
 
             } else {
                 return $this->response(false, 'Unable to create exam...!', [], Response::HTTP_INTERNAL_SERVER_ERROR);
+            }
+        } catch (\Exception $exception) {
+            return $this->response(false, $exception->getMessage(), [], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function update(UpdateExamRequest $request, $examId, ExamService $examService)
+    {
+        try {
+            $oldExamData = Exam::find($examId);
+
+            if (!$oldExamData) { // Check exam exists
+                return $this->response(false, 'Exam not found.', [], Response::HTTP_NOT_FOUND);
+            } elseif ($oldExamData->user_id !== Auth::id()) { // Check ownership
+                return $this->response(false, 'Unauthorized access.', [], Response::HTTP_UNAUTHORIZED);
+            }
+
+            foreach ($request->all() as $key => $value) {
+                $validData[$key] = $value;
+            }
+
+            $status = $examService->updateExam($validData, $oldExamData);
+
+            if ($status) {
+                $newExamData = Exam::find($examId);
+
+                return $this->response(true, 'Updated successfully.', [
+                    'exam' => $newExamData,
+                ], Response::HTTP_OK);
+
+            } else {
+                return $this->response(false, 'Unable to update exam...!', [], Response::HTTP_INTERNAL_SERVER_ERROR);
             }
         } catch (\Exception $exception) {
             return $this->response(false, $exception->getMessage(), [], Response::HTTP_INTERNAL_SERVER_ERROR);

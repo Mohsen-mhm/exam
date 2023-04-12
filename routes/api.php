@@ -48,7 +48,7 @@ Route::prefix('v1')->group(function () {
 
             Route::prefix('exam')->group(function () {
                 Route::post('create', 'store');
-                Route::post('edit', 'update');
+                Route::post('edit/{exam}', 'update');
             });
         });
     });
