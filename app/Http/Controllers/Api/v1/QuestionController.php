@@ -14,6 +14,11 @@ class QuestionController extends Controller
     public function store(StoreQuestionRequest $request, QuestionService $questionService)
     {
         try {
+            $examId = $request->input('exam_id');
+            $exam = Exam::find($examId);
+            if (!$exam) {
+                return $this->response(false, 'This exam is not exists.', [], Response::HTTP_NOT_FOUND);
+            }
 
             foreach ($request->all() as $key => $value) {
                 $validData[$key] = $value;
