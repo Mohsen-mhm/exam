@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\v1\AuthController;
 use App\Http\Controllers\Api\v1\DashboardController;
 use App\Http\Controllers\Api\v1\ExamController;
+use App\Http\Controllers\Api\v1\QuestionController;
 use App\Http\Controllers\Api\v1\SmsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +50,16 @@ Route::prefix('v1')->group(function () {
             Route::prefix('exam')->group(function () {
                 Route::post('create', 'store');
                 Route::post('edit/{exam}', 'update');
+            });
+        });
+
+        Route::controller(QuestionController::class)->group(function () {
+            Route::get('get-question/{question}', 'getQuestion');
+            Route::get('get-questions', 'getQuestions');
+
+            Route::prefix('question')->group(function () {
+                Route::post('create', 'store');
+                Route::post('edit/{question}', 'update');
             });
         });
     });
