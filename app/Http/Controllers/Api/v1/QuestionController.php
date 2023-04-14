@@ -16,6 +16,7 @@ class QuestionController extends Controller
         try {
             $examId = $request->input('exam_id');
             $exam = Exam::find($examId);
+            
             if (!$exam) {
                 return $this->response(false, 'This exam is not exists.', [], Response::HTTP_NOT_FOUND);
             }
