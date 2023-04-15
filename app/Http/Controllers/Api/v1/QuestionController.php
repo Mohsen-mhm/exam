@@ -16,7 +16,7 @@ class QuestionController extends Controller
         try {
             $examId = $request->input('exam_id');
             $exam = Exam::find($examId);
-            
+
             if (!$exam) {
                 return $this->response(false, 'This exam is not exists.', [], Response::HTTP_NOT_FOUND);
             }
@@ -35,6 +35,7 @@ class QuestionController extends Controller
             } else {
                 return $this->response(false, 'Unable to create question...!', [], Response::HTTP_INTERNAL_SERVER_ERROR);
             }
+            
         } catch (\Exception $exception) {
             return $this->response(false, $exception->getMessage(), [], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
