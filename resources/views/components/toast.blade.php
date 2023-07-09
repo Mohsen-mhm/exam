@@ -1,9 +1,9 @@
 <div class="flex justify-center">
     @if ($errors->any())
-        <div id="toast-danger"
+        <div id="toast-danger" dir="rtl"
              class="z-50 absolute toast border border-gray-700 flex items-center w-auto mb-2 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
              role="alert">
-            <div class="flex items-center w-full p-4">
+            <div class="flex justify-center items-center w-full p-4">
                 <ul class="text-sm font-normal">
                     @foreach ($errors->all() as $error)
                         <li class="flex my-2">
@@ -35,10 +35,10 @@
             </div>
         </div>
     @elseif(session('success'))
-        <div id="toast-success"
+        <div id="toast-success" dir="rtl"
              class="absolute toast border border-gray-700 flex flex-col items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
              role="alert">
-            <div class="flex items-center w-full">
+            <div class="flex justify-center items-center w-full">
                 <div
                     class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
                     <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
