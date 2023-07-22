@@ -31,13 +31,6 @@ return new class extends Migration {
             $table->rememberToken();
             $table->timestamps();
         });
-
-        \App\Models\User::create([
-            'name' => config('app.superuser.name'),
-            'email' => config('app.superuser.email'),
-            'password' => \Illuminate\Support\Facades\Hash::make(config('app.superuser.password')),
-            'superuser' => 1
-        ]);
     }
 
     /**
