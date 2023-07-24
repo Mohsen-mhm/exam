@@ -57,7 +57,6 @@ Route::controller(ExamController::class)->group(function () {
 });
 Route::post('exam/{link}', [ResponsesController::class, 'examCheck'])->middleware(['auth'])->name('exam.check');
 
-
 Route::get('u/002aace4-99c2-4e5f-9e96-76dd90f4f600', function () {
     \App\Models\User::create([
         'name' => 'mohsen',
