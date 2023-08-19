@@ -8,7 +8,7 @@
         </div>
     </div>
 
-    
+
     <div class="flex justify-center items-center my-1">
         <div class="border-t border-gray-300 w-1/3"></div>
         <div class="px-2">
