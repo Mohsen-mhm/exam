@@ -33,6 +33,7 @@ class ExamController extends Controller
                 $validData[$key] = $value;
             }
         }
+        
         $validData['user_id'] = auth()->user()->id;
         $validData['link'] = strtolower(Str::random(10));
 
